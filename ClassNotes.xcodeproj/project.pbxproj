@@ -1,0 +1,891 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10001 /* ClassNotesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001; };
+		A10002 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002; };
+		A10003 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003; };
+		A10004 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004; };
+		A10005 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005; };
+		A10006 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
+		A10007 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007; };
+		A10008 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
+		A10009 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009; };
+		A10010 /* GroupsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010; };
+		A10011 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011; };
+		A10012 /* JoinGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012; };
+		A10013 /* GroupFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
+		A10014 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
+		A10015 /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
+		A10016 /* RequestsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
+		A10017 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
+		A10018 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018; };
+		A10019 /* SubjectPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019; };
+		A10020 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10020; };
+		A10021 /* GroupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10021; };
+		A10022 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10022; };
+		A10023 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023; };
+		A10024 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024; };
+		A10027 /* DemoServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10027; };
+		A10028 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10028; };
+		A10029 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030; };
+		A10025 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10025; };
+		A10026 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B10026; };
+		A10030 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = P10001; };
+		A10031 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = P10002; };
+		A10032 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = P10003; };
+		A10033 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = P10004; };
+		A20001 /* TestFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20001; };
+		A20002 /* AppUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20002; };
+		A20003 /* ClassGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20003; };
+		A20004 /* PostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20004; };
+		A20005 /* NoteRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20005; };
+		A20006 /* SubjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20006; };
+		A20007 /* DateExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20007; };
+		A20008 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20008; };
+		A20009 /* GroupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20009; };
+		A20010 /* PostServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20010; };
+		A20011 /* RequestServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20011; };
+		A20012 /* StorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20012; };
+		A20013 /* MockAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20013; };
+		A20014 /* MockGroupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20014; };
+		A20015 /* MockPostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20015; };
+		A20016 /* MockRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20016; };
+		A20017 /* MockStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20017; };
+		A20018 /* AuthServiceLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20018; };
+		A20019 /* GroupServiceLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20019; };
+		A20020 /* PostServiceLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20020; };
+		A20021 /* RequestServiceLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20021; };
+		A20022 /* StorageServiceLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20022; };
+		A30001 /* ClassNotesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30001; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		J10001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = H10001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F10001;
+			remoteInfo = ClassNotes;
+		};
+		J30001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = H10001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F10001;
+			remoteInfo = ClassNotes;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B10001 /* ClassNotesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNotesApp.swift; sourceTree = "<group>"; };
+		B10002 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B10003 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		B10004 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		B10005 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		B10006 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		B10007 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B10008 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B10009 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B10010 /* GroupsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsListView.swift; sourceTree = "<group>"; };
+		B10011 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
+		B10012 /* JoinGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupView.swift; sourceTree = "<group>"; };
+		B10013 /* GroupFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFeedView.swift; sourceTree = "<group>"; };
+		B10014 /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
+		B10015 /* CreatePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
+		B10016 /* RequestsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsListView.swift; sourceTree = "<group>"; };
+		B10017 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
+		B10018 /* PhotoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewer.swift; sourceTree = "<group>"; };
+		B10019 /* SubjectPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectPicker.swift; sourceTree = "<group>"; };
+		B10020 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		B10021 /* GroupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupService.swift; sourceTree = "<group>"; };
+		B10022 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		B10023 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
+		B10024 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		B10027 /* DemoServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoServices.swift; sourceTree = "<group>"; };
+		B10028 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B10025 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10026 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B10029 /* ClassNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassNotes.entitlements; sourceTree = "<group>"; };
+		C10001 /* ClassNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C20001 /* ClassNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30001 /* ClassNotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassNotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B30001 /* ClassNotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNotesUITests.swift; sourceTree = "<group>"; };
+		B20001 /* TestFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFixtures.swift; sourceTree = "<group>"; };
+		B20002 /* AppUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserTests.swift; sourceTree = "<group>"; };
+		B20003 /* ClassGroupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassGroupTests.swift; sourceTree = "<group>"; };
+		B20004 /* PostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTests.swift; sourceTree = "<group>"; };
+		B20005 /* NoteRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRequestTests.swift; sourceTree = "<group>"; };
+		B20006 /* SubjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTests.swift; sourceTree = "<group>"; };
+		B20007 /* DateExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionsTests.swift; sourceTree = "<group>"; };
+		B20008 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
+		B20009 /* GroupServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupServiceProtocol.swift; sourceTree = "<group>"; };
+		B20010 /* PostServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostServiceProtocol.swift; sourceTree = "<group>"; };
+		B20011 /* RequestServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServiceProtocol.swift; sourceTree = "<group>"; };
+		B20012 /* StorageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceProtocol.swift; sourceTree = "<group>"; };
+		B20013 /* MockAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
+		B20014 /* MockGroupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGroupService.swift; sourceTree = "<group>"; };
+		B20015 /* MockPostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPostService.swift; sourceTree = "<group>"; };
+		B20016 /* MockRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestService.swift; sourceTree = "<group>"; };
+		B20017 /* MockStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorageService.swift; sourceTree = "<group>"; };
+		B20018 /* AuthServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceLogicTests.swift; sourceTree = "<group>"; };
+		B20019 /* GroupServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupServiceLogicTests.swift; sourceTree = "<group>"; };
+		B20020 /* PostServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostServiceLogicTests.swift; sourceTree = "<group>"; };
+		B20021 /* RequestServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServiceLogicTests.swift; sourceTree = "<group>"; };
+		B20022 /* StorageServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceLogicTests.swift; sourceTree = "<group>"; };
+		B10030 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D10001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10030 /* FirebaseAuth in Frameworks */,
+				A10031 /* FirebaseFirestore in Frameworks */,
+				A10032 /* FirebaseStorage in Frameworks */,
+				A10033 /* FirebaseMessaging in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D20001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D30001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E10001 = {
+			isa = PBXGroup;
+			children = (
+				E10002 /* ClassNotes */,
+				E20001 /* ClassNotesTests */,
+				E30001 /* ClassNotesUITests */,
+				E10012 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E10002 /* ClassNotes */ = {
+			isa = PBXGroup;
+			children = (
+				B10001 /* ClassNotesApp.swift */,
+				B10029 /* ClassNotes.entitlements */,
+				E10003 /* Models */,
+				E10004 /* Views */,
+				E10009 /* Services */,
+				E10010 /* Utilities */,
+				B10025 /* Assets.xcassets */,
+				B10026 /* GoogleService-Info.plist */,
+			);
+			path = ClassNotes;
+			sourceTree = "<group>";
+		};
+		E10003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B10002 /* User.swift */,
+				B10003 /* Group.swift */,
+				B10004 /* Post.swift */,
+				B10005 /* Request.swift */,
+				B10006 /* Subject.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E10004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E10005 /* Auth */,
+				E10006 /* Groups */,
+				E10007 /* Feed */,
+				E10008 /* Requests */,
+				E10011 /* Common */,
+				E10013 /* Settings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E10013 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B10030 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E10005 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				B10008 /* LoginView.swift */,
+				B10009 /* OnboardingView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E10006 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				B10010 /* GroupsListView.swift */,
+				B10011 /* CreateGroupView.swift */,
+				B10012 /* JoinGroupView.swift */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
+		E10007 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				B10013 /* GroupFeedView.swift */,
+				B10014 /* PostCardView.swift */,
+				B10015 /* CreatePostView.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		E10008 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				B10016 /* RequestsListView.swift */,
+				B10017 /* RequestDetailView.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		E10009 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B10020 /* AuthService.swift */,
+				B10021 /* GroupService.swift */,
+				B10022 /* PostService.swift */,
+				B10023 /* RequestService.swift */,
+				B10024 /* StorageService.swift */,
+				B10027 /* DemoServices.swift */,
+				B10028 /* NotificationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E10010 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B10007 /* Extensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E10011 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B10018 /* PhotoViewer.swift */,
+				B10019 /* SubjectPicker.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E10012 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C10001 /* ClassNotes.app */,
+				C20001 /* ClassNotesTests.xctest */,
+				C30001 /* ClassNotesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E20001 /* ClassNotesTests */ = {
+			isa = PBXGroup;
+			children = (
+				E20002 /* Helpers */,
+				E20003 /* Models */,
+				E20004 /* Utilities */,
+				E20005 /* Services */,
+			);
+			path = ClassNotesTests;
+			sourceTree = "<group>";
+		};
+		E20002 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B20001 /* TestFixtures.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E20003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B20002 /* AppUserTests.swift */,
+				B20003 /* ClassGroupTests.swift */,
+				B20004 /* PostTests.swift */,
+				B20005 /* NoteRequestTests.swift */,
+				B20006 /* SubjectTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E20004 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B20007 /* DateExtensionsTests.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E20005 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E20006 /* Protocols */,
+				E20007 /* Mocks */,
+				E20008 /* Tests */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E20006 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B20008 /* AuthServiceProtocol.swift */,
+				B20009 /* GroupServiceProtocol.swift */,
+				B20010 /* PostServiceProtocol.swift */,
+				B20011 /* RequestServiceProtocol.swift */,
+				B20012 /* StorageServiceProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		E20007 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				B20013 /* MockAuthService.swift */,
+				B20014 /* MockGroupService.swift */,
+				B20015 /* MockPostService.swift */,
+				B20016 /* MockRequestService.swift */,
+				B20017 /* MockStorageService.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		E20008 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B20018 /* AuthServiceLogicTests.swift */,
+				B20019 /* GroupServiceLogicTests.swift */,
+				B20020 /* PostServiceLogicTests.swift */,
+				B20021 /* RequestServiceLogicTests.swift */,
+				B20022 /* StorageServiceLogicTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		E30001 /* ClassNotesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B30001 /* ClassNotesUITests.swift */,
+			);
+			path = ClassNotesUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F10001 /* ClassNotes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = G10003;
+			buildPhases = (
+				F10002 /* Sources */,
+				D10001 /* Frameworks */,
+				F10003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClassNotes;
+			packageProductDependencies = (
+				P10001 /* FirebaseAuth */,
+				P10002 /* FirebaseFirestore */,
+				P10003 /* FirebaseStorage */,
+				P10004 /* FirebaseMessaging */,
+			);
+			productName = ClassNotes;
+			productReference = C10001 /* ClassNotes.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F20001 /* ClassNotesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = G20003;
+			buildPhases = (
+				F20002 /* Sources */,
+				D20001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				K10001 /* PBXTargetDependency */,
+			);
+			name = ClassNotesTests;
+			productName = ClassNotesTests;
+			productReference = C20001 /* ClassNotesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F30001 /* ClassNotesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = G30003;
+			buildPhases = (
+				F30002 /* Sources */,
+				D30001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				K30001 /* PBXTargetDependency */,
+			);
+			name = ClassNotesUITests;
+			productName = ClassNotesUITests;
+			productReference = C30001 /* ClassNotesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		H10001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					F10001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					F20001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = F10001;
+					};
+					F30001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = F10001;
+					};
+				};
+			};
+			buildConfigurationList = G10001;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E10001;
+			packageReferences = (
+				R10001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			productRefGroup = E10012 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F10001 /* ClassNotes */,
+				F20001 /* ClassNotesTests */,
+				F30001 /* ClassNotesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F10003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10025 /* Assets.xcassets in Resources */,
+				A10026 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F10002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001 /* ClassNotesApp.swift in Sources */,
+				A10002 /* User.swift in Sources */,
+				A10003 /* Group.swift in Sources */,
+				A10004 /* Post.swift in Sources */,
+				A10005 /* Request.swift in Sources */,
+				A10006 /* Subject.swift in Sources */,
+				A10007 /* Extensions.swift in Sources */,
+				A10008 /* LoginView.swift in Sources */,
+				A10009 /* OnboardingView.swift in Sources */,
+				A10010 /* GroupsListView.swift in Sources */,
+				A10011 /* CreateGroupView.swift in Sources */,
+				A10012 /* JoinGroupView.swift in Sources */,
+				A10013 /* GroupFeedView.swift in Sources */,
+				A10014 /* PostCardView.swift in Sources */,
+				A10015 /* CreatePostView.swift in Sources */,
+				A10016 /* RequestsListView.swift in Sources */,
+				A10017 /* RequestDetailView.swift in Sources */,
+				A10018 /* PhotoViewer.swift in Sources */,
+				A10019 /* SubjectPicker.swift in Sources */,
+				A10020 /* AuthService.swift in Sources */,
+				A10021 /* GroupService.swift in Sources */,
+				A10022 /* PostService.swift in Sources */,
+				A10023 /* RequestService.swift in Sources */,
+				A10024 /* StorageService.swift in Sources */,
+				A10027 /* DemoServices.swift in Sources */,
+				A10028 /* NotificationService.swift in Sources */,
+				A10029 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F20002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A20001 /* TestFixtures.swift in Sources */,
+				A20002 /* AppUserTests.swift in Sources */,
+				A20003 /* ClassGroupTests.swift in Sources */,
+				A20004 /* PostTests.swift in Sources */,
+				A20005 /* NoteRequestTests.swift in Sources */,
+				A20006 /* SubjectTests.swift in Sources */,
+				A20007 /* DateExtensionsTests.swift in Sources */,
+				A20008 /* AuthServiceProtocol.swift in Sources */,
+				A20009 /* GroupServiceProtocol.swift in Sources */,
+				A20010 /* PostServiceProtocol.swift in Sources */,
+				A20011 /* RequestServiceProtocol.swift in Sources */,
+				A20012 /* StorageServiceProtocol.swift in Sources */,
+				A20013 /* MockAuthService.swift in Sources */,
+				A20014 /* MockGroupService.swift in Sources */,
+				A20015 /* MockPostService.swift in Sources */,
+				A20016 /* MockRequestService.swift in Sources */,
+				A20017 /* MockStorageService.swift in Sources */,
+				A20018 /* AuthServiceLogicTests.swift in Sources */,
+				A20019 /* GroupServiceLogicTests.swift in Sources */,
+				A20020 /* PostServiceLogicTests.swift in Sources */,
+				A20021 /* RequestServiceLogicTests.swift in Sources */,
+				A20022 /* StorageServiceLogicTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F30002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A30001 /* ClassNotesUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		K10001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F10001 /* ClassNotes */;
+			targetProxy = J10001 /* PBXContainerItemProxy */;
+		};
+		K30001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F10001 /* ClassNotes */;
+			targetProxy = J30001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		G10002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		G10004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		G10005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClassNotes/ClassNotes.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AU57XJFV4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ClassNotes;
+				INFOPLIST_KEY_NSCameraUsageDescription = "ClassNotes needs camera access to take photos of class notes";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ClassNotes needs photo library access to select photos of class notes";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classnotes.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		G10006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClassNotes/ClassNotes.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AU57XJFV4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ClassNotes;
+				INFOPLIST_KEY_NSCameraUsageDescription = "ClassNotes needs camera access to take photos of class notes";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ClassNotes needs photo library access to select photos of class notes";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classnotes.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		G20001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classnotes.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClassNotes.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClassNotes";
+			};
+			name = Debug;
+		};
+		G20002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classnotes.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClassNotes.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClassNotes";
+			};
+			name = Release;
+		};
+		G30001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classnotes.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ClassNotes;
+			};
+			name = Debug;
+		};
+		G30002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classnotes.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ClassNotes;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		G10001 /* Build configuration list for PBXProject */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				G10002 /* Debug */,
+				G10004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		G10003 /* Build configuration list for PBXNativeTarget */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				G10005 /* Debug */,
+				G10006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		G20003 /* Build configuration list for ClassNotesTests */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				G20001 /* Debug */,
+				G20002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		G30003 /* Build configuration list for ClassNotesUITests */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				G30001 /* Debug */,
+				G30002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		R10001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		P10001 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = R10001;
+			productName = FirebaseAuth;
+		};
+		P10002 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = R10001;
+			productName = FirebaseFirestore;
+		};
+		P10003 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = R10001;
+			productName = FirebaseStorage;
+		};
+		P10004 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = R10001;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+	};
+	rootObject = H10001 /* Project object */;
+}
