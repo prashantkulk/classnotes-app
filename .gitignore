@@ -30,6 +30,12 @@ Packages/
 .LSOverride
 ._*
 
+# Firebase / Secrets
+GoogleService-Info.plist
+.firebaserc
+functions/node_modules/
+functions/lib/
+
 # Generated files
 generate_icon.py
 
