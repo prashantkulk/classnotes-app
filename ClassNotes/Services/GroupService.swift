@@ -90,15 +90,23 @@ class GroupService: ObservableObject {
                 }
 
                 let data = doc.data()
+                let members = data["members"] as? [String] ?? []
                 let group = ClassGroup(
                     id: doc.documentID,
                     name: data["name"] as? String ?? "",
                     school: data["school"] as? String ?? "",
                     inviteCode: data["inviteCode"] as? String ?? "",
-                    members: data["members"] as? [String] ?? [],
+                    members: members,
                     createdBy: data["createdBy"] as? String ?? "",
                     createdAt: (data["createdAt"] as? Timestamp)?.dateValue() ?? Date()
                 )
+
+                // Check if user is already a member
+                if members.contains(userId) {
+                    completion(.failure(NSError(domain: "", code: 409,
+                        userInfo: [NSLocalizedDescriptionKey: "You are already a member of \(group.name)."])))
+                    return
+                }
 
                 // Add user to group members
                 self.db.collection("groups").document(doc.documentID).updateData([

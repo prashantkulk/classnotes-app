@@ -238,12 +238,13 @@ struct OTPFieldView: View {
 
     var body: some View {
         ZStack {
-            // Hidden text field for keyboard input
+            // Hidden text field for keyboard input and OTP autofill
             TextField("", text: $code)
                 .keyboardType(.numberPad)
                 .textContentType(.oneTimeCode)
                 .focused($isFocused)
-                .opacity(0)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .opacity(0.01)
                 .onChange(of: code) { newValue in
                     if newValue.count > 6 {
                         code = String(newValue.prefix(6))
@@ -269,10 +270,11 @@ struct OTPFieldView: View {
                         )
                 }
             }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                isFocused = true
-            }
+            .allowsHitTesting(false)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            isFocused = true
         }
         .onAppear {
             isFocused = true

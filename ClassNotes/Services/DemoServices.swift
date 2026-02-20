@@ -73,11 +73,15 @@ class DemoGroupService: GroupService {
     override func joinGroup(code: String, userId: String, completion: @escaping (Result<ClassGroup, Error>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             if let group = DemoData.groups.first(where: { $0.inviteCode == code }) {
+                // Check if already a member
+                if group.members.contains(userId) || self.groups.contains(where: { $0.id == group.id }) {
+                    completion(.failure(NSError(domain: "", code: 409,
+                        userInfo: [NSLocalizedDescriptionKey: "You are already a member of \(group.name)."])))
+                    return
+                }
                 var joined = group
                 joined.members.append(userId)
-                if !self.groups.contains(where: { $0.id == joined.id }) {
-                    self.groups.insert(joined, at: 0)
-                }
+                self.groups.insert(joined, at: 0)
                 completion(.success(joined))
             } else {
                 completion(.failure(NSError(domain: "", code: 404,

@@ -166,6 +166,8 @@ struct CreateGroupView: View {
             switch result {
             case .success(let created):
                 createdGroup = created
+                // Refresh groups list so the new group appears immediately
+                groupService.loadGroups(for: authService.currentUserId)
             case .failure:
                 break
             }

@@ -670,9 +670,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ClassNotes/ClassNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = AU57XJFV4W;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClassNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ClassNotes;
 				INFOPLIST_KEY_NSCameraUsageDescription = "ClassNotes needs camera access to take photos of class notes";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ClassNotes needs photo library access to select photos of class notes";
@@ -705,9 +706,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ClassNotes/ClassNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = AU57XJFV4W;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClassNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ClassNotes;
 				INFOPLIST_KEY_NSCameraUsageDescription = "ClassNotes needs camera access to take photos of class notes";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ClassNotes needs photo library access to select photos of class notes";
@@ -738,7 +740,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -758,7 +760,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -777,7 +779,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -796,7 +798,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;

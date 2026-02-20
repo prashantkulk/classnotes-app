@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseCore
+import FirebaseAuth
 import FirebaseMessaging
 import UserNotifications
 
@@ -25,9 +26,31 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         return true
     }
 
-    // Forward APNs token to Firebase
+    // Forward APNs token to Firebase Auth (required for phone auth) and Messaging
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Auth.auth().setAPNSToken(deviceToken, type: .unknown)
         Messaging.messaging().apnsToken = deviceToken
+    }
+
+    // Forward remote notifications to Firebase Auth (handles silent push for phone verification)
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if Auth.auth().canHandleNotification(userInfo) {
+            completionHandler(.noData)
+            return
+        }
+        completionHandler(.noData)
+    }
+
+    // Handle URL callbacks (reCAPTCHA fallback for phone auth)
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        if Auth.auth().canHandle(url) {
+            return true
+        }
+        return false
     }
 
     // MARK: - MessagingDelegate

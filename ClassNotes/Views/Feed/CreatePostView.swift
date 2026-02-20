@@ -30,6 +30,7 @@ struct CreatePostView: View {
     @State private var selectedDate = Date()
     @State private var description = ""
     @State private var isLoading = false
+    @State private var showCamera = false
 
     var body: some View {
         NavigationStack {
@@ -94,6 +95,19 @@ struct CreatePostView: View {
                         .font(.headline)
                         .foregroundStyle(.secondary)
 
+                    Button {
+                        showCamera = true
+                    } label: {
+                        Label("Take Photo", systemImage: "camera.fill")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.teal)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .padding(.horizontal, 32)
+
                     PhotosPicker(selection: $selectedPhotos,
                                  maxSelectionCount: 10,
                                  matching: .images) {
@@ -102,7 +116,7 @@ struct CreatePostView: View {
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
                     .tint(.teal)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .padding(.horizontal, 32)
@@ -141,14 +155,31 @@ struct CreatePostView: View {
                         .padding(.horizontal, 16)
 
                         // Add more photos
-                        PhotosPicker(selection: $selectedPhotos,
-                                     maxSelectionCount: 10,
-                                     matching: .images) {
-                            Label("Add More Photos", systemImage: "plus.circle")
-                                .font(.subheadline)
+                        HStack(spacing: 16) {
+                            Button {
+                                showCamera = true
+                            } label: {
+                                Label("Camera", systemImage: "camera")
+                                    .font(.subheadline)
+                            }
+                            .tint(.teal)
+
+                            PhotosPicker(selection: $selectedPhotos,
+                                         maxSelectionCount: 10,
+                                         matching: .images) {
+                                Label("Gallery", systemImage: "photo.stack")
+                                    .font(.subheadline)
+                            }
+                            .tint(.teal)
                         }
-                        .tint(.teal)
                     }
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showCamera) {
+            CameraView { image in
+                if let image {
+                    loadedImages.append(image)
                 }
             }
         }
@@ -407,6 +438,44 @@ struct CreatePostView: View {
             case .failure:
                 break
             }
+        }
+    }
+}
+
+// MARK: - Camera View
+
+struct CameraView: UIViewControllerRepresentable {
+    let onCapture: (UIImage?) -> Void
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onCapture: onCapture)
+    }
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let onCapture: (UIImage?) -> Void
+
+        init(onCapture: @escaping (UIImage?) -> Void) {
+            self.onCapture = onCapture
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            let image = info[.originalImage] as? UIImage
+            onCapture(image)
+            picker.dismiss(animated: true)
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            onCapture(nil)
+            picker.dismiss(animated: true)
         }
     }
 }

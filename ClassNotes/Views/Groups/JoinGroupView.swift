@@ -138,6 +138,8 @@ struct JoinGroupView: View {
             isLoading = false
             switch result {
             case .success:
+                // Refresh groups list so the joined group appears immediately
+                groupService.loadGroups(for: authService.currentUserId)
                 withAnimation {
                     joinedSuccessfully = true
                 }
