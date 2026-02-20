@@ -76,22 +76,24 @@ class PostService: ObservableObject {
                 ]
 
                 self?.db.collection("posts").document(postId).setData(data) { error in
-                    if let error {
-                        completion(.failure(error))
-                        return
-                    }
+                    DispatchQueue.main.async {
+                        if let error {
+                            completion(.failure(error))
+                            return
+                        }
 
-                    let post = Post(
-                        id: postId,
-                        groupId: groupId,
-                        authorId: authorId,
-                        authorName: authorName,
-                        subject: subject,
-                        date: date,
-                        description: description,
-                        photoURLs: photoURLs
-                    )
-                    completion(.success(post))
+                        let post = Post(
+                            id: postId,
+                            groupId: groupId,
+                            authorId: authorId,
+                            authorName: authorName,
+                            subject: subject,
+                            date: date,
+                            description: description,
+                            photoURLs: photoURLs
+                        )
+                        completion(.success(post))
+                    }
                 }
 
             case .failure(let error):

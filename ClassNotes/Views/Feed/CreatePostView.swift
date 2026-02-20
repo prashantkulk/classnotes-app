@@ -30,6 +30,7 @@ struct CreatePostView: View {
     @State private var selectedDate = Date()
     @State private var description = ""
     @State private var isLoading = false
+    @State private var errorMessage: String?
     @State private var showCamera = false
 
     var body: some View {
@@ -63,6 +64,15 @@ struct CreatePostView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") { dismiss() }
                 }
+            }
+            .alert("Upload Failed", isPresented: Binding(
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+            )) {
+                Button("Try Again") { shareNotes() }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text(errorMessage ?? "Something went wrong. Please try again.")
             }
         }
     }
@@ -435,8 +445,8 @@ struct CreatePostView: View {
             switch result {
             case .success:
                 dismiss()
-            case .failure:
-                break
+            case .failure(let error):
+                errorMessage = error.localizedDescription
             }
         }
     }

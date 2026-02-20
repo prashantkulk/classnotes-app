@@ -96,23 +96,25 @@ class RequestService: ObservableObject {
         }
 
         db.collection("requests").document(requestId).setData(data) { error in
-            if let error {
-                completion(.failure(error))
-                return
-            }
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                    return
+                }
 
-            let request = NoteRequest(
-                id: requestId,
-                groupId: groupId,
-                authorId: authorId,
-                authorName: authorName,
-                subject: subject,
-                date: date,
-                description: description,
-                targetUserId: targetUserId,
-                targetUserName: targetUserName
-            )
-            completion(.success(request))
+                let request = NoteRequest(
+                    id: requestId,
+                    groupId: groupId,
+                    authorId: authorId,
+                    authorName: authorName,
+                    subject: subject,
+                    date: date,
+                    description: description,
+                    targetUserId: targetUserId,
+                    targetUserName: targetUserName
+                )
+                completion(.success(request))
+            }
         }
     }
 
@@ -142,10 +144,12 @@ class RequestService: ObservableObject {
                     "responses": FieldValue.arrayUnion([responseData]),
                     "status": RequestStatus.fulfilled.rawValue
                 ]) { error in
-                    if let error {
-                        completion(.failure(error))
-                    } else {
-                        completion(.success(()))
+                    DispatchQueue.main.async {
+                        if let error {
+                            completion(.failure(error))
+                        } else {
+                            completion(.success(()))
+                        }
                     }
                 }
 
