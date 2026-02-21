@@ -42,64 +42,64 @@ Services talk to Firebase directly. No repository layer.
 ### iOS Project Structure
 
 ```
-ClassNotes/
-├── ClassNotesApp.swift          # App entry, AppDelegate, RootView routing
-├── Info.plist                    # URL scheme for Firebase Phone Auth callback
-├── ClassNotes.entitlements       # Push notification entitlement (aps-environment)
-├── GoogleService-Info.plist      # Firebase config (DO NOT commit secrets)
-├── Models/
-│   ├── User.swift                # AppUser (id, phone, name, groups, fcmToken)
-│   ├── Group.swift               # ClassGroup (members, inviteCode, customSubjects)
-│   ├── Post.swift                # Post (groupId, subjectName, photoURLs)
-│   ├── Request.swift             # NoteRequest + RequestResponse + RequestStatus
-│   ├── Subject.swift             # Subject enum (Math, Science, English, Hindi, Social Studies, Other)
-│   └── SubjectInfo.swift         # Wrapper for built-in + custom subjects
-├── Views/
-│   ├── Auth/
-│   │   ├── LoginView.swift       # Phone number + OTP entry with country code picker
-│   │   └── OnboardingView.swift  # "What should we call you?" name entry
-│   ├── Groups/
-│   │   ├── GroupsListView.swift  # List of groups, create/join actions
-│   │   ├── CreateGroupView.swift # Create group form
-│   │   └── JoinGroupView.swift   # Join group by invite code
-│   ├── Feed/
-│   │   ├── GroupFeedView.swift   # Notes/Requests tabs, subject filter, GroupInfoView sheet
-│   │   ├── PostCardView.swift    # Note card + CachedAsyncImage + ImageCache
-│   │   └── CreatePostView.swift  # Multi-step: Photos -> Subject -> Date -> Review
-│   ├── Requests/
-│   │   ├── RequestsListView.swift # CreateRequestView (multi-step request wizard)
-│   │   └── RequestDetailView.swift # Request detail + respond with photos
-│   ├── Common/
-│   │   ├── PhotoViewer.swift     # Full-screen zoomable photo viewer with save
-│   │   ├── SubjectPicker.swift   # (Legacy, not actively used)
-│   │   └── AddCustomSubjectView.swift # Add custom subject with color/icon picker
-│   └── Settings/
-│       └── SettingsView.swift    # Sign out, delete account, app version
-├── Services/
-│   ├── AuthService.swift         # Firebase Phone Auth + user profile
-│   ├── GroupService.swift        # CRUD groups, join/leave, custom subjects
-│   ├── PostService.swift         # CRUD posts with real-time snapshot listener
-│   ├── RequestService.swift      # CRUD requests, respond, mark fulfilled
-│   ├── StorageService.swift      # Image upload to Firebase Storage (resize + compress)
-│   ├── NotificationService.swift # FCM token management + member fetching
-│   └── DemoServices.swift        # In-memory mock services for simulator demo mode
-└── Utilities/
-    └── Extensions.swift          # Date formatting helpers
+ios/
+├── ClassNotes.xcodeproj/          # Xcode project file
+├── ClassNotes/                    # Main app source
+│   ├── ClassNotesApp.swift          # App entry, AppDelegate, RootView routing
+│   ├── Info.plist                    # URL scheme for Firebase Phone Auth callback
+│   ├── ClassNotes.entitlements       # Push notification entitlement (aps-environment)
+│   ├── GoogleService-Info.plist      # Firebase config (DO NOT commit secrets)
+│   ├── Models/
+│   │   ├── User.swift                # AppUser (id, phone, name, groups, fcmToken)
+│   │   ├── Group.swift               # ClassGroup (members, inviteCode, customSubjects)
+│   │   ├── Post.swift                # Post (groupId, subjectName, photoURLs)
+│   │   ├── Request.swift             # NoteRequest + RequestResponse + RequestStatus
+│   │   ├── Subject.swift             # Subject enum (Math, Science, English, Hindi, Social Studies, Other)
+│   │   └── SubjectInfo.swift         # Wrapper for built-in + custom subjects
+│   ├── Views/
+│   │   ├── Auth/
+│   │   │   ├── LoginView.swift       # Phone number + OTP entry with country code picker
+│   │   │   └── OnboardingView.swift  # "What should we call you?" name entry
+│   │   ├── Groups/
+│   │   │   ├── GroupsListView.swift  # List of groups, create/join actions
+│   │   │   ├── CreateGroupView.swift # Create group form
+│   │   │   └── JoinGroupView.swift   # Join group by invite code
+│   │   ├── Feed/
+│   │   │   ├── GroupFeedView.swift   # Notes/Requests tabs, subject filter, GroupInfoView sheet
+│   │   │   ├── PostCardView.swift    # Note card + CachedAsyncImage + ImageCache
+│   │   │   └── CreatePostView.swift  # Multi-step: Photos -> Subject -> Date -> Review
+│   │   ├── Requests/
+│   │   │   ├── RequestsListView.swift # CreateRequestView (multi-step request wizard)
+│   │   │   └── RequestDetailView.swift # Request detail + respond with photos
+│   │   ├── Common/
+│   │   │   ├── PhotoViewer.swift     # Full-screen zoomable photo viewer with save
+│   │   │   ├── SubjectPicker.swift   # (Legacy, not actively used)
+│   │   │   └── AddCustomSubjectView.swift # Add custom subject with color/icon picker
+│   │   └── Settings/
+│   │       └── SettingsView.swift    # Sign out, delete account, app version
+│   ├── Services/
+│   │   ├── AuthService.swift         # Firebase Phone Auth + user profile
+│   │   ├── GroupService.swift        # CRUD groups, join/leave, custom subjects
+│   │   ├── PostService.swift         # CRUD posts with real-time snapshot listener
+│   │   ├── RequestService.swift      # CRUD requests, respond, mark fulfilled
+│   │   ├── StorageService.swift      # Image upload to Firebase Storage (resize + compress)
+│   │   ├── NotificationService.swift # FCM token management + member fetching
+│   │   └── DemoServices.swift        # In-memory mock services for simulator demo mode
+│   └── Utilities/
+│       └── Extensions.swift          # Date formatting helpers
+├── ClassNotesTests/
+│   ├── Helpers/TestFixtures.swift    # Shared test data
+│   ├── Models/                       # Unit tests for all model types
+│   ├── Utilities/                    # Date extension tests
+│   └── Services/
+│       ├── Protocols/                # Service protocols for testability
+│       ├── Mocks/                    # Mock implementations
+│       └── Tests/                    # Service logic unit tests
+└── ClassNotesUITests/
+    └── ClassNotesUITests.swift       # Full demo flow E2E test
 
-ClassNotesTests/
-├── Helpers/TestFixtures.swift    # Shared test data
-├── Models/                       # Unit tests for all model types
-├── Utilities/                    # Date extension tests
-└── Services/
-    ├── Protocols/                # Service protocols for testability
-    ├── Mocks/                    # Mock implementations
-    └── Tests/                    # Service logic unit tests
-
-ClassNotesUITests/
-└── ClassNotesUITests.swift       # Full demo flow E2E test
-
-functions/
-└── src/index.ts                  # Cloud Functions (v2): onPostCreated, onRequestCreated
+functions/                             # Cloud Functions (shared backend)
+└── src/index.ts                       # v2: onPostCreated, onRequestCreated
 ```
 
 ---
@@ -328,11 +328,11 @@ export PATH="/Users/prashant/local/node-v20.11.1-darwin-arm64/bin:$PATH"
 ### Quick Build & Test
 ```bash
 # Build for simulator
-xcodebuild -scheme ClassNotes -sdk iphonesimulator \
+xcodebuild -project ios/ClassNotes.xcodeproj -scheme ClassNotes -sdk iphonesimulator \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 
 # Run all tests (unit + UI)
-xcodebuild -scheme ClassNotes -sdk iphonesimulator \
+xcodebuild -project ios/ClassNotes.xcodeproj -scheme ClassNotes -sdk iphonesimulator \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test
 ```
 
@@ -342,7 +342,7 @@ xcodebuild -scheme ClassNotes -sdk iphonesimulator \
 
 2. **Archive without signing**:
 ```bash
-xcodebuild -scheme ClassNotes -sdk iphoneos -configuration Release \
+xcodebuild -project ios/ClassNotes.xcodeproj -scheme ClassNotes -sdk iphoneos -configuration Release \
   -archivePath /tmp/ClassNotes.xcarchive archive \
   CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 ```
@@ -356,7 +356,7 @@ done
 
 # Sign the main app
 codesign --force --sign "Apple Development: prashantkulkarni.nm@gmail.com (QHYZ38AQ8B)" \
-  --entitlements ClassNotes/ClassNotes.entitlements \
+  --entitlements ios/ClassNotes/ClassNotes.entitlements \
   /tmp/ClassNotes.xcarchive/Products/Applications/ClassNotes.app
 ```
 
@@ -430,7 +430,7 @@ The `ClassNotesUITests.testFullDemoFlow()` test covers:
 
 Screenshots are saved to `/Users/prashant/Projects/ClassNotes/screenshots/`.
 
-Run: `xcodebuild -scheme ClassNotes -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test`
+Run: `xcodebuild -project ios/ClassNotes.xcodeproj -scheme ClassNotes -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test`
 
 ### Manual Testing Flows
 
@@ -503,7 +503,7 @@ First-time v2 deployment may fail with "Eventarc Service Agent" permission error
 ### xcodebuild can't find simulator
 Available simulators change with Xcode/SDK updates. Check available destinations with:
 ```bash
-xcodebuild -scheme ClassNotes -showdestinations
+xcodebuild -project ios/ClassNotes.xcodeproj -scheme ClassNotes -showdestinations
 ```
 Current simulator: `iPhone 17 Pro` (iOS 26.2).
 
@@ -562,7 +562,7 @@ Services talk to Firebase directly. No repository layer (mirrors iOS architectur
 ## Android Project Structure
 
 ```
-ClassNotesAndroid/
+android/
 ├── app/
 │   ├── build.gradle.kts              # App build config, dependencies
 │   ├── google-services.json          # Firebase config (DO NOT commit)
@@ -811,7 +811,7 @@ export PATH="$JAVA_HOME/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:
 ### Build Commands
 
 ```bash
-cd /Users/prashant/Projects/ClassNotes/ClassNotesAndroid
+cd /Users/prashant/Projects/ClassNotes/android
 
 # Build debug APK
 ./gradlew assembleDebug
