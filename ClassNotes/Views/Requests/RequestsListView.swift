@@ -6,10 +6,12 @@ import SwiftUI
 struct CreateRequestView: View {
     let group: ClassGroup
     @ObservedObject var requestService: RequestService
+    @ObservedObject var groupService: GroupService
     @EnvironmentObject var authService: AuthService
     @Environment(\.dismiss) private var dismiss
 
-    @State private var selectedSubject: Subject?
+    @State private var selectedSubjectInfo: SubjectInfo?
+    @State private var showAddCustomSubject = false
     @State private var selectedDate = Date()
     @State private var selectedTargetUser: AppUser? // nil = ask everyone
     @State private var groupMembers: [AppUser] = []
@@ -77,33 +79,60 @@ struct CreateRequestView: View {
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
             ], spacing: 12) {
-                ForEach(Subject.allCases) { subject in
+                ForEach(group.allSubjects) { subject in
                     Button {
-                        selectedSubject = subject
+                        selectedSubjectInfo = subject
                     } label: {
                         VStack(spacing: 8) {
                             Image(systemName: subject.icon)
                                 .font(.title2)
-                            Text(subject.rawValue)
+                            Text(subject.name)
                                 .font(.headline)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 24)
-                        .background(selectedSubject == subject
+                        .background(selectedSubjectInfo == subject
                                     ? subject.color.opacity(0.15)
                                     : Color(.systemGray6))
-                        .foregroundStyle(selectedSubject == subject ? subject.color : .primary)
+                        .foregroundStyle(selectedSubjectInfo == subject ? subject.color : .primary)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .overlay(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(selectedSubject == subject ? subject.color : Color.clear, lineWidth: 2)
+                                .stroke(selectedSubjectInfo == subject ? subject.color : Color.clear, lineWidth: 2)
                         )
                     }
+                }
+
+                // Add Subject button
+                Button {
+                    showAddCustomSubject = true
+                } label: {
+                    VStack(spacing: 8) {
+                        Image(systemName: "plus")
+                            .font(.title2)
+                        Text("Add Subject")
+                            .font(.headline)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                    .background(Color(.systemGray6))
+                    .foregroundStyle(.secondary)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [6]))
+                            .foregroundStyle(Color(.systemGray3))
+                    )
                 }
             }
             .padding(.horizontal, 24)
 
             Spacer()
+        }
+        .sheet(isPresented: $showAddCustomSubject) {
+            AddCustomSubjectView(group: group, groupService: groupService) { newSubject in
+                selectedSubjectInfo = newSubject
+            }
         }
     }
 
@@ -237,9 +266,9 @@ struct CreateRequestView: View {
         VStack(spacing: 20) {
             Spacer()
 
-            if let subject = selectedSubject {
+            if let subject = selectedSubjectInfo {
                 HStack(spacing: 8) {
-                    Text(subject.rawValue)
+                    Text(subject.name)
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .padding(.horizontal, 10)
@@ -326,7 +355,7 @@ struct CreateRequestView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.teal)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
-                .disabled(step == 0 && selectedSubject == nil)
+                .disabled(step == 0 && selectedSubjectInfo == nil)
             }
         }
         .padding(.horizontal, 24)
@@ -336,14 +365,14 @@ struct CreateRequestView: View {
     // MARK: - Actions
 
     private func submitRequest() {
-        guard let subject = selectedSubject else { return }
+        guard selectedSubjectInfo != nil else { return }
         isLoading = true
 
         requestService.createRequest(
             groupId: group.id,
             authorId: authService.currentUserId,
             authorName: authService.currentUserName,
-            subject: subject,
+            subjectName: selectedSubjectInfo?.name ?? "",
             date: selectedDate,
             description: message,
             targetUserId: selectedTargetUser?.id,

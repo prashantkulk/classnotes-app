@@ -25,7 +25,7 @@ struct OnboardingView: View {
             .padding(.bottom, 40)
 
             VStack(spacing: 16) {
-                TextField("e.g. Priya's Mom", text: $name)
+                TextField("e.g. Aditi's Mom", text: $name)
                     .font(.title3)
                     .padding(16)
                     .background(Color(.systemGray6))

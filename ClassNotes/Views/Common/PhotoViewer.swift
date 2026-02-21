@@ -23,16 +23,13 @@ struct PhotoViewer: View {
             // Photo pager
             TabView(selection: $currentIndex) {
                 ForEach(Array(photoURLs.enumerated()), id: \.offset) { index, url in
-                    ZoomableImageView(url: url)
-                        .tag(index)
+                    ZoomableImageView(url: url, onSingleTap: {
+                        withAnimation { showControls.toggle() }
+                    })
+                    .tag(index)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .onTapGesture {
-                withAnimation {
-                    showControls.toggle()
-                }
-            }
 
             // Controls overlay
             if showControls {
@@ -143,16 +140,18 @@ struct PhotoViewer: View {
 
 struct ZoomableImageView: View {
     let url: String
+    var onSingleTap: (() -> Void)? = nil
+    @State private var image: UIImage?
+    @State private var hasFailed = false
     @State private var scale: CGFloat = 1.0
     @State private var lastScale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
 
     var body: some View {
-        AsyncImage(url: URL(string: url)) { phase in
-            switch phase {
-            case .success(let image):
-                image
+        Group {
+            if let image {
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .scaleEffect(scale)
@@ -174,19 +173,19 @@ struct ZoomableImageView: View {
                                 }
                             }
                     )
-                    .simultaneousGesture(
-                        DragGesture()
+                    .highPriorityGesture(
+                        scale > 1.0
+                        ? DragGesture()
                             .onChanged { value in
-                                if scale > 1.0 {
-                                    offset = CGSize(
-                                        width: lastOffset.width + value.translation.width,
-                                        height: lastOffset.height + value.translation.height
-                                    )
-                                }
+                                offset = CGSize(
+                                    width: lastOffset.width + value.translation.width,
+                                    height: lastOffset.height + value.translation.height
+                                )
                             }
                             .onEnded { _ in
                                 lastOffset = offset
                             }
+                        : nil
                     )
                     .onTapGesture(count: 2) {
                         withAnimation {
@@ -199,7 +198,10 @@ struct ZoomableImageView: View {
                             }
                         }
                     }
-            case .failure:
+                    .onTapGesture(count: 1) {
+                        onSingleTap?()
+                    }
+            } else if hasFailed {
                 VStack(spacing: 12) {
                     Image(systemName: "exclamationmark.triangle")
                         .font(.largeTitle)
@@ -208,11 +210,18 @@ struct ZoomableImageView: View {
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.6))
                 }
-            case .empty:
+            } else {
                 ProgressView()
                     .tint(.white)
-            @unknown default:
-                EmptyView()
+            }
+        }
+        .onAppear {
+            ImageCache.shared.loadImage(from: url) { loaded in
+                if let loaded {
+                    image = loaded
+                } else {
+                    hasFailed = true
+                }
             }
         }
     }

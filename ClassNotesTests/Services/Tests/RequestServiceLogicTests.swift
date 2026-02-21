@@ -42,7 +42,7 @@ final class RequestServiceLogicTests: XCTestCase {
             groupId: "group-1",
             authorId: "user-1",
             authorName: "Test User",
-            subject: .science,
+            subjectName: Subject.science.rawValue,
             date: Date(),
             description: "Need ch3 notes",
             targetUserId: nil,
@@ -71,7 +71,7 @@ final class RequestServiceLogicTests: XCTestCase {
             groupId: "group-1",
             authorId: "user-1",
             authorName: "Test",
-            subject: .math,
+            subjectName: Subject.math.rawValue,
             date: Date(),
             description: "",
             targetUserId: nil,
@@ -95,7 +95,7 @@ final class RequestServiceLogicTests: XCTestCase {
             groupId: "group-7",
             authorId: "user-3",
             authorName: "Parent",
-            subject: .english,
+            subjectName: Subject.english.rawValue,
             date: Date(),
             description: "Grammar exercises",
             targetUserId: nil,
@@ -104,7 +104,7 @@ final class RequestServiceLogicTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
 
         XCTAssertEqual(mockService.createRequestLastGroupId, "group-7")
-        XCTAssertEqual(mockService.createRequestLastSubject, .english)
+        XCTAssertEqual(mockService.createRequestLastSubjectName, Subject.english.rawValue)
         XCTAssertEqual(mockService.createRequestLastDescription, "Grammar exercises")
         XCTAssertNil(mockService.createRequestLastTargetUserId)
         XCTAssertNil(mockService.createRequestLastTargetUserName)
@@ -118,7 +118,7 @@ final class RequestServiceLogicTests: XCTestCase {
             groupId: "group-1",
             authorId: "user-1",
             authorName: "Parent",
-            subject: .hindi,
+            subjectName: Subject.hindi.rawValue,
             date: Date(),
             description: "Need Hindi notes",
             targetUserId: "user-2",
@@ -128,7 +128,7 @@ final class RequestServiceLogicTests: XCTestCase {
 
         XCTAssertEqual(mockService.createRequestLastTargetUserId, "user-2")
         XCTAssertEqual(mockService.createRequestLastTargetUserName, "Priya's Mom")
-        XCTAssertEqual(mockService.createRequestLastSubject, .hindi)
+        XCTAssertEqual(mockService.createRequestLastSubjectName, Subject.hindi.rawValue)
     }
 
     // MARK: - respondToRequest

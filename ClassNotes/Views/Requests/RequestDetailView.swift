@@ -4,13 +4,19 @@ import PhotosUI
 struct RequestDetailView: View {
     let request: NoteRequest
     @ObservedObject var requestService: RequestService
+    @ObservedObject var postService: PostService
+    let group: ClassGroup
     @EnvironmentObject var authService: AuthService
+    @Environment(\.dismiss) private var dismiss
 
     @State private var showPhotoPicker = false
     @State private var selectedPhotos: [PhotosPickerItem] = []
     @State private var isUploading = false
     @State private var selectedPhotoIndex: Int?
     @State private var selectedResponsePhotos: [String] = []
+    @State private var showDeleteConfirmation = false
+
+    private var subjectInfo: SubjectInfo { request.subjectInfo(for: group) }
 
     var body: some View {
         ScrollView {
@@ -37,6 +43,28 @@ struct RequestDetailView: View {
         .fullScreenCover(item: $selectedPhotoIndex) { index in
             PhotoViewer(photoURLs: selectedResponsePhotos, initialIndex: index)
         }
+        .toolbar {
+            if request.authorId == authService.currentUserId {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showDeleteConfirmation = true
+                    } label: {
+                        Image(systemName: "trash")
+                            .foregroundStyle(.red)
+                    }
+                }
+            }
+        }
+        .confirmationDialog("Delete Request", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
+            Button("Delete", role: .destructive) {
+                requestService.deleteRequest(request) { _ in
+                    dismiss()
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to delete this request? This cannot be undone.")
+        }
     }
 
     // MARK: - Request Header
@@ -44,13 +72,13 @@ struct RequestDetailView: View {
     private var requestHeader: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
-                Text(request.subject.rawValue)
+                Text(subjectInfo.name)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
-                    .background(request.subject.color.opacity(0.15))
-                    .foregroundStyle(request.subject.color)
+                    .background(subjectInfo.color.opacity(0.15))
+                    .foregroundStyle(subjectInfo.color)
                     .clipShape(Capsule())
 
                 Text(request.date.displayString)
@@ -144,7 +172,7 @@ struct RequestDetailView: View {
                                     selectedResponsePhotos = response.photoURLs
                                     selectedPhotoIndex = index
                                 } label: {
-                                    AsyncImageView(url: url)
+                                    CachedAsyncImage(url: url)
                                         .frame(width: 120, height: 160)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
@@ -214,14 +242,28 @@ struct RequestDetailView: View {
         }
 
         group.notify(queue: .main) {
-            requestService.respondToRequest(
-                requestId: request.id,
+            // Also create a post so the notes appear in the Notes tab
+            postService.createPost(
+                groupId: request.groupId,
                 authorId: authService.currentUserId,
                 authorName: authService.currentUserName,
+                subjectName: request.subjectName,
+                date: request.date,
+                description: request.description.isEmpty
+                    ? "\(request.subjectName) notes (from request)"
+                    : request.description,
                 images: images
             ) { _ in
-                isUploading = false
-                selectedPhotos = []
+                // Post created (or failed silently) — now update the request
+                requestService.respondToRequest(
+                    requestId: request.id,
+                    authorId: authService.currentUserId,
+                    authorName: authService.currentUserName,
+                    images: images
+                ) { _ in
+                    isUploading = false
+                    selectedPhotos = []
+                }
             }
         }
     }

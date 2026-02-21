@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import FirebaseFirestore
+import FirebaseStorage
 
 class RequestService: ObservableObject {
     @Published var requests: [NoteRequest] = []
@@ -21,13 +22,15 @@ class RequestService: ObservableObject {
             .whereField("groupId", isEqualTo: groupId)
             .order(by: "createdAt", descending: true)
             .addSnapshotListener { [weak self] snapshot, error in
+                if let error {
+                    print("[RequestService] loadRequests snapshot error: \(error.localizedDescription)")
+                }
                 guard let self, let documents = snapshot?.documents else { return }
 
                 DispatchQueue.main.async {
                     self.requests = documents.compactMap { doc in
                         let data = doc.data()
-                        guard let subjectRaw = data["subject"] as? String,
-                              let subject = Subject(rawValue: subjectRaw),
+                        guard let subjectName = data["subject"] as? String,
                               let statusRaw = data["status"] as? String,
                               let status = RequestStatus(rawValue: statusRaw) else { return nil }
 
@@ -47,7 +50,7 @@ class RequestService: ObservableObject {
                             groupId: data["groupId"] as? String ?? "",
                             authorId: data["authorId"] as? String ?? "",
                             authorName: data["authorName"] as? String ?? "",
-                            subject: subject,
+                            subjectName: subjectName,
                             date: (data["date"] as? Timestamp)?.dateValue() ?? Date(),
                             description: data["description"] as? String ?? "",
                             targetUserId: data["targetUserId"] as? String,
@@ -67,7 +70,7 @@ class RequestService: ObservableObject {
         groupId: String,
         authorId: String,
         authorName: String,
-        subject: Subject,
+        subjectName: String,
         date: Date,
         description: String,
         targetUserId: String? = nil,
@@ -80,7 +83,7 @@ class RequestService: ObservableObject {
             "groupId": groupId,
             "authorId": authorId,
             "authorName": authorName,
-            "subject": subject.rawValue,
+            "subject": subjectName,
             "date": Timestamp(date: date),
             "description": description,
             "status": RequestStatus.open.rawValue,
@@ -107,7 +110,7 @@ class RequestService: ObservableObject {
                     groupId: groupId,
                     authorId: authorId,
                     authorName: authorName,
-                    subject: subject,
+                    subjectName: subjectName,
                     date: date,
                     description: description,
                     targetUserId: targetUserId,
@@ -155,6 +158,34 @@ class RequestService: ObservableObject {
 
             case .failure(let error):
                 completion(.failure(error))
+            }
+        }
+    }
+
+    // MARK: - Delete Request
+
+    func deleteRequest(_ request: NoteRequest, completion: @escaping (Result<Void, Error>) -> Void) {
+        var allImageURLs: [String] = []
+        for response in request.responses {
+            allImageURLs.append(contentsOf: response.photoURLs)
+        }
+
+        db.collection("requests").document(request.id).delete { error in
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                } else {
+                    let storage = Storage.storage()
+                    for urlString in allImageURLs {
+                        do {
+                            let ref = try storage.reference(forURL: urlString)
+                            ref.delete { _ in }
+                        } catch {
+                            // Skip invalid URLs
+                        }
+                    }
+                    completion(.success(()))
+                }
             }
         }
     }

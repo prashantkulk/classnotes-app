@@ -14,7 +14,7 @@ class MockRequestService: RequestServiceProtocol {
     var loadRequestsLastGroupId: String?
     var createRequestCallCount = 0
     var createRequestLastGroupId: String?
-    var createRequestLastSubject: Subject?
+    var createRequestLastSubjectName: String?
     var createRequestLastDescription: String?
     var createRequestLastTargetUserId: String?
     var createRequestLastTargetUserName: String?
@@ -25,6 +25,9 @@ class MockRequestService: RequestServiceProtocol {
     var respondToRequestLastImages: [UIImage]?
     var markAsFulfilledCallCount = 0
     var markAsFulfilledLastRequestId: String?
+    var deleteRequestResult: Result<Void, Error> = .success(())
+    var deleteRequestCallCount = 0
+    var deleteRequestLastId: String?
 
     func loadRequests(for groupId: String) {
         loadRequestsCallCount += 1
@@ -35,7 +38,7 @@ class MockRequestService: RequestServiceProtocol {
         groupId: String,
         authorId: String,
         authorName: String,
-        subject: Subject,
+        subjectName: String,
         date: Date,
         description: String,
         targetUserId: String?,
@@ -44,7 +47,7 @@ class MockRequestService: RequestServiceProtocol {
     ) {
         createRequestCallCount += 1
         createRequestLastGroupId = groupId
-        createRequestLastSubject = subject
+        createRequestLastSubjectName = subjectName
         createRequestLastDescription = description
         createRequestLastTargetUserId = targetUserId
         createRequestLastTargetUserName = targetUserName
@@ -69,5 +72,14 @@ class MockRequestService: RequestServiceProtocol {
     func markAsFulfilled(requestId: String) {
         markAsFulfilledCallCount += 1
         markAsFulfilledLastRequestId = requestId
+    }
+
+    func deleteRequest(_ request: NoteRequest, completion: @escaping (Result<Void, Error>) -> Void) {
+        deleteRequestCallCount += 1
+        deleteRequestLastId = request.id
+        if case .success = deleteRequestResult {
+            requests.removeAll { $0.id == request.id }
+        }
+        completion(deleteRequestResult)
     }
 }

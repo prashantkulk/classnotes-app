@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Teal circle background -->
+    <path
+        android:fillColor="#009688"
+        android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+    <!-- "C" letter for ClassNotes -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,32c-12.15,0 -22,9.85 -22,22s9.85,22 22,22c6.08,0 11.58,-2.46 15.56,-6.44l-4.24,-4.24C62.72,67.92 58.56,70 54,70c-8.84,0 -16,-7.16 -16,-16s7.16,-16 16,-16c4.56,0 8.72,2.08 11.32,4.68l4.24,-4.24C65.58,34.46 60.08,32 54,32z" />
+</vector>

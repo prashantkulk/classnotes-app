@@ -19,6 +19,8 @@ final class PostTests: XCTestCase {
         XCTAssertEqual(post.date, date)
         XCTAssertEqual(post.description, "Ch. 5")
         XCTAssertEqual(post.photoURLs, ["url1", "url2"])
+        XCTAssertTrue(post.comments.isEmpty)
+        XCTAssertTrue(post.reactions.isEmpty)
     }
 
     func test_init_withDefaults_hasEmptyDescriptionAndPhotos() {
@@ -27,6 +29,8 @@ final class PostTests: XCTestCase {
 
         XCTAssertEqual(post.description, "")
         XCTAssertEqual(post.photoURLs, [])
+        XCTAssertTrue(post.comments.isEmpty)
+        XCTAssertTrue(post.reactions.isEmpty)
         XCTAssertFalse(post.id.isEmpty)
     }
 
@@ -106,16 +110,34 @@ final class PostTests: XCTestCase {
 
     // MARK: - Codable Decoding
 
-    func test_decodable_fromJSON_invalidSubject_throwsError() {
+    func test_decodable_fromJSON_customSubject_decodesWithNilSubjectEnum() throws {
         let json = """
         {
             "id": "p1", "groupId": "g1", "authorId": "u1", "authorName": "Mom",
-            "subject": "InvalidSubject", "date": 1700000000,
+            "subjectName": "Computer", "date": 1700000000,
             "description": "", "photoURLs": [], "createdAt": 1700000000
         }
         """.data(using: .utf8)!
 
-        XCTAssertThrowsError(try JSONDecoder().decode(Post.self, from: json))
+        let decoded = try JSONDecoder().decode(Post.self, from: json)
+        XCTAssertEqual(decoded.subjectName, "Computer")
+        XCTAssertNil(decoded.subject)
+        XCTAssertTrue(decoded.comments.isEmpty)
+        XCTAssertTrue(decoded.reactions.isEmpty)
+    }
+
+    func test_decodable_fromJSON_missingCommentsAndReactions_defaultsToEmpty() throws {
+        let json = """
+        {
+            "id": "p2", "groupId": "g1", "authorId": "u1", "authorName": "Mom",
+            "subjectName": "Math", "date": 1700000000,
+            "description": "Test", "photoURLs": ["url1"], "createdAt": 1700000000
+        }
+        """.data(using: .utf8)!
+
+        let decoded = try JSONDecoder().decode(Post.self, from: json)
+        XCTAssertTrue(decoded.comments.isEmpty)
+        XCTAssertTrue(decoded.reactions.isEmpty)
     }
 
     // MARK: - Edge Cases

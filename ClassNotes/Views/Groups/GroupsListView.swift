@@ -16,7 +16,7 @@ struct GroupsListView: View {
                     groupsList
                 }
             }
-            .navigationTitle("ClassNotes")
+            .navigationTitle("Your Groups")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -120,7 +120,7 @@ struct GroupsListView: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ForEach(groupService.groups) { group in
-                    NavigationLink(destination: GroupFeedView(group: group)) {
+                    NavigationLink(destination: GroupFeedView(group: group, groupService: groupService)) {
                         GroupCardView(group: group)
                     }
                     .buttonStyle(.plain)

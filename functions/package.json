@@ -1,0 +1,22 @@
+{
+  "name": "classnotes-functions",
+  "version": "1.0.0",
+  "description": "Cloud Functions for ClassNotes push notifications",
+  "scripts": {
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^13.6.1",
+    "firebase-functions": "^7.0.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "private": true
+}

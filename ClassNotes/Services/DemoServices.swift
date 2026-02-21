@@ -32,6 +32,18 @@ class DemoAuthService: AuthService {
         self.needsOnboarding = false
     }
 
+    override func updateName(_ name: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Name cannot be empty."])))
+            return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.currentUserName = trimmed
+            completion(.success(()))
+        }
+    }
+
     override func signOut() {
         self.isAuthenticated = false
         self.currentUserId = ""
@@ -89,6 +101,29 @@ class DemoGroupService: GroupService {
             }
         }
     }
+
+    override func leaveGroup(groupId: String, userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.groups.removeAll { $0.id == groupId }
+            completion(.success(()))
+        }
+    }
+
+    override func deleteGroup(_ group: ClassGroup, completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.groups.removeAll { $0.id == group.id }
+            completion(.success(()))
+        }
+    }
+
+    override func addCustomSubject(to groupId: String, subject: SubjectInfo, completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            if let index = self.groups.firstIndex(where: { $0.id == groupId }) {
+                self.groups[index].customSubjects.append(subject.firestoreDict)
+            }
+            completion(.success(()))
+        }
+    }
 }
 
 // MARK: - Demo Post Service
@@ -106,7 +141,7 @@ class DemoPostService: PostService {
         groupId: String,
         authorId: String,
         authorName: String,
-        subject: Subject,
+        subjectName: String,
         date: Date,
         description: String,
         images: [UIImage],
@@ -123,13 +158,62 @@ class DemoPostService: PostService {
                 groupId: groupId,
                 authorId: authorId,
                 authorName: authorName,
-                subject: subject,
+                subjectName: subjectName,
                 date: date,
                 description: description,
                 photoURLs: photoURLs.isEmpty ? ["https://picsum.photos/seed/demo/400/600"] : photoURLs
             )
             self.posts.insert(post, at: 0)
             completion(.success(post))
+        }
+    }
+
+    override func deletePost(_ post: Post, completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.posts.removeAll { $0.id == post.id }
+            completion(.success(()))
+        }
+    }
+
+    override func addComment(to postId: String, authorId: String, authorName: String, text: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+                let comment = PostComment(authorId: authorId, authorName: authorName, text: text)
+                self.posts[index].comments.append(comment)
+            }
+            completion(.success(()))
+        }
+    }
+
+    override func toggleReaction(postId: String, emoji: String, userId: String, currentReactions: [PostReaction], completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+                var reactions = self.posts[index].reactions
+                if let rIdx = reactions.firstIndex(where: { $0.emoji == emoji }) {
+                    if reactions[rIdx].userIds.contains(userId) {
+                        reactions[rIdx].userIds.removeAll { $0 == userId }
+                        if reactions[rIdx].userIds.isEmpty {
+                            reactions.remove(at: rIdx)
+                        }
+                    } else {
+                        reactions[rIdx].userIds.append(userId)
+                    }
+                } else {
+                    reactions.append(PostReaction(emoji: emoji, userIds: [userId]))
+                }
+                self.posts[index].reactions = reactions
+            }
+            completion(.success(()))
+        }
+    }
+
+    override func addPhotos(to postId: String, images: [UIImage], completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+                let newURLs = images.map { _ in "https://picsum.photos/seed/\(UUID().uuidString)/400/600" }
+                self.posts[index].photoURLs.append(contentsOf: newURLs)
+            }
+            completion(.success(()))
         }
     }
 }
@@ -149,7 +233,7 @@ class DemoRequestService: RequestService {
         groupId: String,
         authorId: String,
         authorName: String,
-        subject: Subject,
+        subjectName: String,
         date: Date,
         description: String,
         targetUserId: String? = nil,
@@ -162,7 +246,7 @@ class DemoRequestService: RequestService {
                 groupId: groupId,
                 authorId: authorId,
                 authorName: authorName,
-                subject: subject,
+                subjectName: subjectName,
                 date: date,
                 description: description,
                 targetUserId: targetUserId,
@@ -198,6 +282,13 @@ class DemoRequestService: RequestService {
         }
     }
 
+    override func deleteRequest(_ request: NoteRequest, completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.requests.removeAll { $0.id == request.id }
+            completion(.success(()))
+        }
+    }
+
     override func markAsFulfilled(requestId: String) {
         if let index = requests.firstIndex(where: { $0.id == requestId }) {
             requests[index].status = .fulfilled
@@ -210,7 +301,7 @@ class DemoRequestService: RequestService {
 enum DemoData {
     static let users: [AppUser] = [
         AppUser(id: "demo-user-1", phone: "+919876543210", name: "You"),
-        AppUser(id: "demo-user-2", phone: "+919876543211", name: "Priya's Mom"),
+        AppUser(id: "demo-user-2", phone: "+919876543211", name: "Aditi's Mom"),
         AppUser(id: "demo-user-3", phone: "+919876543212", name: "Rahul's Dad"),
         AppUser(id: "demo-user-4", phone: "+919876543213", name: "Ananya's Mom"),
         AppUser(id: "demo-user-5", phone: "+919876543214", name: "Vikram's Mom"),
@@ -225,7 +316,8 @@ enum DemoData {
             school: "Delhi Public School",
             inviteCode: "DEMO01",
             members: ["demo-user-1", "demo-user-2", "demo-user-3", "demo-user-4", "demo-user-5"],
-            createdBy: "demo-user-1"
+            createdBy: "demo-user-1",
+            customSubjects: [["name": "Computer", "color": "cyan", "icon": "laptopcomputer"]]
         ),
         ClassGroup(
             id: "demo-group-2",
@@ -242,7 +334,7 @@ enum DemoData {
             id: "demo-post-1",
             groupId: "demo-group-1",
             authorId: "demo-user-2",
-            authorName: "Priya's Mom",
+            authorName: "Aditi's Mom",
             subject: .math,
             date: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
             description: "Chapter 7 - Fractions and Decimals (all 4 pages)",
@@ -282,7 +374,7 @@ enum DemoData {
             id: "demo-post-4",
             groupId: "demo-group-1",
             authorId: "demo-user-2",
-            authorName: "Priya's Mom",
+            authorName: "Aditi's Mom",
             subject: .hindi,
             date: Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date(),
             description: "Hindi essay topic and reference notes",
@@ -341,7 +433,7 @@ enum DemoData {
                 RequestResponse(
                     id: "demo-resp-1",
                     authorId: "demo-user-2",
-                    authorName: "Priya's Mom",
+                    authorName: "Aditi's Mom",
                     photoURLs: ["https://picsum.photos/seed/resp1/400/600"]
                 )
             ]
@@ -359,10 +451,10 @@ enum DemoData {
             id: "demo-req-4",
             groupId: "demo-group-1",
             authorId: "demo-user-2",
-            authorName: "Priya's Mom",
+            authorName: "Aditi's Mom",
             subject: .hindi,
             date: Date(),
-            description: "Can you share Hindi notes from today? Priya says your child writes very neatly!",
+            description: "Can you share Hindi notes from today? Aditi says your child writes very neatly!",
             targetUserId: "demo-user-1",
             targetUserName: "You"
         ),

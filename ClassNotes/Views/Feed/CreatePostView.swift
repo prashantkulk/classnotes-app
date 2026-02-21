@@ -20,18 +20,21 @@ enum CreatePostStep: Int, CaseIterable {
 struct CreatePostView: View {
     let group: ClassGroup
     @ObservedObject var postService: PostService
+    @ObservedObject var groupService: GroupService
     @EnvironmentObject var authService: AuthService
     @Environment(\.dismiss) private var dismiss
 
     @State private var currentStep: CreatePostStep = .photos
     @State private var selectedPhotos: [PhotosPickerItem] = []
     @State private var loadedImages: [UIImage] = []
-    @State private var selectedSubject: Subject?
+    @State private var selectedSubjectInfo: SubjectInfo?
     @State private var selectedDate = Date()
     @State private var description = ""
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var showCamera = false
+    @State private var showAddCustomSubject = false
+    @State private var showSuccess = false
 
     var body: some View {
         NavigationStack {
@@ -65,6 +68,27 @@ struct CreatePostView: View {
                     Button("Cancel") { dismiss() }
                 }
             }
+            .overlay {
+                if showSuccess {
+                    VStack(spacing: 16) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 64))
+                            .foregroundStyle(.green)
+                        Text("Notes Shared!")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        Text("Your notes have been uploaded successfully.")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(32)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.ultraThinMaterial)
+                    .transition(.opacity)
+                }
+            }
+            .animation(.easeInOut, value: showSuccess)
             .alert("Upload Failed", isPresented: Binding(
                 get: { errorMessage != nil },
                 set: { if !$0 { errorMessage = nil } }
@@ -208,33 +232,58 @@ struct CreatePostView: View {
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
             ], spacing: 12) {
-                ForEach(Subject.allCases) { subject in
+                ForEach(group.allSubjects) { subject in
                     Button {
-                        selectedSubject = subject
+                        selectedSubjectInfo = subject
                     } label: {
                         VStack(spacing: 8) {
                             Image(systemName: subject.icon)
                                 .font(.title2)
-                            Text(subject.rawValue)
+                            Text(subject.name)
                                 .font(.headline)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 24)
-                        .background(selectedSubject == subject
+                        .background(selectedSubjectInfo == subject
                                     ? subject.color.opacity(0.15)
                                     : Color(.systemGray6))
-                        .foregroundStyle(selectedSubject == subject ? subject.color : .primary)
+                        .foregroundStyle(selectedSubjectInfo == subject ? subject.color : .primary)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .overlay(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(selectedSubject == subject ? subject.color : Color.clear, lineWidth: 2)
+                                .stroke(selectedSubjectInfo == subject ? subject.color : Color.clear, lineWidth: 2)
                         )
                     }
+                }
+
+                // Add custom subject button
+                Button {
+                    showAddCustomSubject = true
+                } label: {
+                    VStack(spacing: 8) {
+                        Image(systemName: "plus")
+                            .font(.title2)
+                        Text("Add Subject")
+                            .font(.headline)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                    .foregroundStyle(.teal)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(.teal, style: StrokeStyle(lineWidth: 2, dash: [6]))
+                    )
                 }
             }
             .padding(.horizontal, 24)
 
             Spacer()
+        }
+        .sheet(isPresented: $showAddCustomSubject) {
+            AddCustomSubjectView(group: group, groupService: groupService) { newSubject in
+                selectedSubjectInfo = newSubject
+            }
         }
     }
 
@@ -288,9 +337,9 @@ struct CreatePostView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // Summary
                 VStack(alignment: .leading, spacing: 12) {
-                    if let subject = selectedSubject {
+                    if let subject = selectedSubjectInfo {
                         HStack(spacing: 8) {
-                            Text(subject.rawValue)
+                            Text(subject.name)
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .padding(.horizontal, 10)
@@ -407,7 +456,7 @@ struct CreatePostView: View {
     private var canProceed: Bool {
         switch currentStep {
         case .photos: return !loadedImages.isEmpty
-        case .subject: return selectedSubject != nil
+        case .subject: return selectedSubjectInfo != nil
         case .date: return true
         case .review: return true
         }
@@ -429,14 +478,14 @@ struct CreatePostView: View {
     }
 
     private func shareNotes() {
-        guard let subject = selectedSubject else { return }
+        guard selectedSubjectInfo != nil else { return }
         isLoading = true
 
         postService.createPost(
             groupId: group.id,
             authorId: authService.currentUserId,
             authorName: authService.currentUserName,
-            subject: subject,
+            subjectName: selectedSubjectInfo?.name ?? "",
             date: selectedDate,
             description: description,
             images: loadedImages
@@ -444,7 +493,11 @@ struct CreatePostView: View {
             isLoading = false
             switch result {
             case .success:
-                dismiss()
+                showSuccess = true
+                // Give the Firestore snapshot listener time to pick up the new post
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    dismiss()
+                }
             case .failure(let error):
                 errorMessage = error.localizedDescription
             }
@@ -493,7 +546,8 @@ struct CameraView: UIViewControllerRepresentable {
 #Preview {
     CreatePostView(
         group: ClassGroup(name: "Class 5B", school: "St. Mary's", createdBy: "1"),
-        postService: PostService()
+        postService: PostService(),
+        groupService: GroupService()
     )
     .environmentObject(AuthService())
 }

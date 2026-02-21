@@ -10,7 +10,7 @@ protocol RequestServiceProtocol: AnyObject {
         groupId: String,
         authorId: String,
         authorName: String,
-        subject: Subject,
+        subjectName: String,
         date: Date,
         description: String,
         targetUserId: String?,
@@ -25,4 +25,5 @@ protocol RequestServiceProtocol: AnyObject {
         completion: @escaping (Result<Void, Error>) -> Void
     )
     func markAsFulfilled(requestId: String)
+    func deleteRequest(_ request: NoteRequest, completion: @escaping (Result<Void, Error>) -> Void)
 }

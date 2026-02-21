@@ -50,11 +50,11 @@ final class ClassNotesUITests: XCTestCase {
         XCTAssertTrue(onboardingText.waitForExistence(timeout: 5), "Onboarding screen should appear")
 
         // Enter name
-        let nameField = app.textFields["e.g. Priya's Mom"]
+        let nameField = app.textFields["e.g. Aditi's Mom"]
         if nameField.waitForExistence(timeout: 3) {
             nameField.tap()
             sleep(1)
-            nameField.typeText("Priya's Mom")
+            nameField.typeText("Aditi's Mom")
         }
 
         // Tap Continue
@@ -76,29 +76,99 @@ final class ClassNotesUITests: XCTestCase {
 
         takeScreenshot(name: "03_Group_Feed")
 
-        // ===== SCREEN 5: Switch to Requests tab =====
+        // ===== SCREEN 5: Tap first note to open Note Detail =====
+        // Tap on the note description text to trigger the NavigationLink
+        let noteText = app.staticTexts["Chapter 7 - Fractions and Decimals (all 4 pages)"]
+        if noteText.waitForExistence(timeout: 3) {
+            noteText.tap()
+            sleep(2)
+
+            // If the full-screen photo viewer opened, dismiss it first
+            let closeButton = app.buttons["xmark"]
+            if closeButton.waitForExistence(timeout: 1) {
+                closeButton.tap()
+                sleep(1)
+            }
+
+            // Check if we navigated to PostDetailView
+            let notesNavBar = app.navigationBars["Notes"]
+            if notesNavBar.waitForExistence(timeout: 3) {
+                takeScreenshot(name: "04_Note_Detail")
+                // Go back to feed
+                app.navigationBars.buttons.firstMatch.tap()
+                sleep(1)
+            } else {
+                // Fallback: take screenshot of whatever is showing
+                takeScreenshot(name: "04_Note_Detail")
+                // Try to go back
+                if app.navigationBars.buttons.firstMatch.exists {
+                    app.navigationBars.buttons.firstMatch.tap()
+                    sleep(1)
+                }
+            }
+        }
+
+        // ===== SCREEN 6: Switch to Requests tab =====
         let requestsButton = app.buttons["Requests"]
         if requestsButton.waitForExistence(timeout: 3) {
             requestsButton.tap()
             sleep(1)
-            takeScreenshot(name: "04_Requests_Tab")
+            takeScreenshot(name: "05_Requests_Tab")
         } else if app.staticTexts["Requests"].exists {
             app.staticTexts["Requests"].tap()
             sleep(1)
-            takeScreenshot(name: "04_Requests_Tab")
+            takeScreenshot(name: "05_Requests_Tab")
+        }
+
+        // ===== SCREEN 7: Tap first request to open Request Detail =====
+        let firstRequestCell = app.cells.firstMatch
+        if firstRequestCell.waitForExistence(timeout: 3) {
+            firstRequestCell.tap()
+            sleep(2)
+            takeScreenshot(name: "06_Request_Detail")
+
+            // Go back to requests
+            app.navigationBars.buttons.firstMatch.tap()
+            sleep(1)
         }
 
         // Go back to groups list
         app.navigationBars.buttons.firstMatch.tap()
         sleep(1)
 
-        // ===== SCREEN 6: Settings =====
+        // ===== SCREEN 8: Group Info =====
+        // Navigate back into the group first
+        let class5AAgain = app.staticTexts["Class 5A"]
+        if class5AAgain.waitForExistence(timeout: 3) {
+            class5AAgain.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+            sleep(2)
+
+            // Tap the info button
+            let infoButton = app.buttons["info.circle"]
+            if infoButton.waitForExistence(timeout: 3) {
+                infoButton.tap()
+                sleep(2)
+                takeScreenshot(name: "07_Group_Info")
+
+                // Dismiss group info
+                if app.buttons["Done"].exists {
+                    app.buttons["Done"].tap()
+                }
+                sleep(1)
+            }
+
+            // Go back to groups list
+            app.navigationBars.buttons.firstMatch.tap()
+            sleep(1)
+        }
+
+        // ===== SCREEN 9: Settings =====
         // The gear button is on the leading side - find it by accessibility label
         let settingsButton = app.buttons["gearshape"]
         if settingsButton.waitForExistence(timeout: 3) {
             settingsButton.tap()
             sleep(1)
-            takeScreenshot(name: "05_Settings")
+            takeScreenshot(name: "08_Settings")
             // Dismiss settings
             if app.buttons["Done"].exists {
                 app.buttons["Done"].tap()

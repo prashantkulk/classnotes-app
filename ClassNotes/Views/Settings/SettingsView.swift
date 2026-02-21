@@ -10,17 +10,29 @@ struct SettingsView: View {
     @State private var isDeletingAccount = false
     @State private var deleteError: String?
     @State private var showDeleteError = false
+    @State private var showEditName = false
+    @State private var editedName: String = ""
+    @State private var isSavingName = false
 
     var body: some View {
         NavigationStack {
             List {
                 // Account info
                 Section {
-                    HStack {
-                        Text("Name")
-                        Spacer()
-                        Text(authService.currentUserName)
-                            .foregroundStyle(.secondary)
+                    Button {
+                        editedName = authService.currentUserName
+                        showEditName = true
+                    } label: {
+                        HStack {
+                            Text("Name")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Text(authService.currentUserName)
+                                .foregroundStyle(.secondary)
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
                     }
                 }
 
@@ -41,16 +53,19 @@ struct SettingsView: View {
                     Text("Permanently deletes your account and profile data. Your shared notes will remain visible to group members.")
                 }
 
-                // App version
+                // Credits
                 Section {
                 } footer: {
-                    HStack {
-                        Spacer()
-                        Text("ClassNotes v\(appVersion)")
-                            .font(.footnote)
-                            .foregroundStyle(.tertiary)
-                        Spacer()
+                    VStack(spacing: 4) {
+                        HStack(spacing: 0) {
+                            Text("Designed by Ritu, Rashmi and Aditi with ")
+                            Image(systemName: "heart.fill")
+                                .foregroundStyle(.red)
+                        }
+                        .font(.footnote)
+                        .foregroundStyle(.tertiary)
                     }
+                    .frame(maxWidth: .infinity)
                 }
             }
             .navigationTitle("Settings")
@@ -90,6 +105,24 @@ struct SettingsView: View {
             } message: {
                 Text(deleteError ?? "Something went wrong. Please try again.")
             }
+            .alert("Edit Name", isPresented: $showEditName) {
+                TextField("Your name", text: $editedName)
+                Button("Cancel", role: .cancel) {}
+                Button("Save") {
+                    let trimmed = editedName.trimmingCharacters(in: .whitespaces)
+                    guard !trimmed.isEmpty, trimmed != authService.currentUserName else { return }
+                    isSavingName = true
+                    authService.updateName(trimmed) { result in
+                        isSavingName = false
+                        if case .failure(let error) = result {
+                            deleteError = error.localizedDescription
+                            showDeleteError = true
+                        }
+                    }
+                }
+            } message: {
+                Text("What should we call you?")
+            }
             .overlay {
                 if isDeletingAccount {
                     ZStack {
@@ -109,10 +142,6 @@ struct SettingsView: View {
     }
 
     // MARK: - Helpers
-
-    private var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-    }
 
     private func performAccountDeletion() {
         isDeletingAccount = true

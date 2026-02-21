@@ -134,6 +134,33 @@ class AuthService: ObservableObject {
         ])
     }
 
+    // MARK: - Update Name
+
+    func updateName(_ name: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Name cannot be empty."])))
+            return
+        }
+        guard !currentUserId.isEmpty else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not signed in."])))
+            return
+        }
+
+        db.collection("users").document(currentUserId).updateData([
+            "name": trimmed
+        ]) { error in
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                } else {
+                    self.currentUserName = trimmed
+                    completion(.success(()))
+                }
+            }
+        }
+    }
+
     // MARK: - Sign Out
 
     func signOut() {

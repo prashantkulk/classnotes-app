@@ -22,6 +22,7 @@
 		A10013 /* GroupFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
 		A10014 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
 		A10015 /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
+		A10036 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033; };
 		A10016 /* RequestsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
 		A10017 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
 		A10018 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018; };
@@ -33,7 +34,9 @@
 		A10024 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024; };
 		A10027 /* DemoServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10027; };
 		A10028 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10028; };
-		A10029 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030; };
+		A10029 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10034; };
+		A10034 /* SubjectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031; };
+		A10035 /* AddCustomSubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032; };
 		A10025 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10025; };
 		A10026 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B10026; };
 		A10030 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = P10001; };
@@ -98,6 +101,7 @@
 		B10013 /* GroupFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFeedView.swift; sourceTree = "<group>"; };
 		B10014 /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
 		B10015 /* CreatePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
+		B10033 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		B10016 /* RequestsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsListView.swift; sourceTree = "<group>"; };
 		B10017 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		B10018 /* PhotoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewer.swift; sourceTree = "<group>"; };
@@ -138,7 +142,9 @@
 		B20020 /* PostServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostServiceLogicTests.swift; sourceTree = "<group>"; };
 		B20021 /* RequestServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServiceLogicTests.swift; sourceTree = "<group>"; };
 		B20022 /* StorageServiceLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceLogicTests.swift; sourceTree = "<group>"; };
-		B10030 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B10034 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B10031 /* SubjectInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectInfo.swift; sourceTree = "<group>"; };
+		B10032 /* AddCustomSubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomSubjectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +209,7 @@
 				B10004 /* Post.swift */,
 				B10005 /* Request.swift */,
 				B10006 /* Subject.swift */,
+				B10031 /* SubjectInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,7 +230,7 @@
 		E10013 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				B10030 /* SettingsView.swift */,
+				B10034 /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -253,6 +260,7 @@
 				B10013 /* GroupFeedView.swift */,
 				B10014 /* PostCardView.swift */,
 				B10015 /* CreatePostView.swift */,
+				B10033 /* PostDetailView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -293,6 +301,7 @@
 			children = (
 				B10018 /* PhotoViewer.swift */,
 				B10019 /* SubjectPicker.swift */,
+				B10032 /* AddCustomSubjectView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -538,6 +547,7 @@
 				A10013 /* GroupFeedView.swift in Sources */,
 				A10014 /* PostCardView.swift in Sources */,
 				A10015 /* CreatePostView.swift in Sources */,
+				A10036 /* PostDetailView.swift in Sources */,
 				A10016 /* RequestsListView.swift in Sources */,
 				A10017 /* RequestDetailView.swift in Sources */,
 				A10018 /* PhotoViewer.swift in Sources */,
@@ -550,6 +560,8 @@
 				A10027 /* DemoServices.swift in Sources */,
 				A10028 /* NotificationService.swift in Sources */,
 				A10029 /* SettingsView.swift in Sources */,
+				A10034 /* SubjectInfo.swift in Sources */,
+				A10035 /* AddCustomSubjectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,7 +682,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ClassNotes/ClassNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = AU57XJFV4W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClassNotes/Info.plist;
@@ -706,7 +718,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ClassNotes/ClassNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = AU57XJFV4W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClassNotes/Info.plist;
@@ -740,7 +752,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -760,7 +772,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -779,7 +791,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -798,7 +810,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;

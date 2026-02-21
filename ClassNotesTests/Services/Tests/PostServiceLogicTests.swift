@@ -43,7 +43,7 @@ final class PostServiceLogicTests: XCTestCase {
             groupId: "group-1",
             authorId: "user-1",
             authorName: "Test User",
-            subject: .math,
+            subjectName: Subject.math.rawValue,
             date: Date(),
             description: "Algebra chapter 5",
             images: []
@@ -73,7 +73,7 @@ final class PostServiceLogicTests: XCTestCase {
             groupId: "group-1",
             authorId: "user-1",
             authorName: "Test User",
-            subject: .science,
+            subjectName: Subject.science.rawValue,
             date: Date(),
             description: "Test",
             images: []
@@ -101,7 +101,7 @@ final class PostServiceLogicTests: XCTestCase {
             groupId: "group-42",
             authorId: "user-7",
             authorName: "Parent",
-            subject: .hindi,
+            subjectName: Subject.hindi.rawValue,
             date: Date(),
             description: "Hindi notes",
             images: [testImage]
@@ -110,7 +110,7 @@ final class PostServiceLogicTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
 
         XCTAssertEqual(mockService.createPostLastGroupId, "group-42")
-        XCTAssertEqual(mockService.createPostLastSubject, .hindi)
+        XCTAssertEqual(mockService.createPostLastSubjectName, Subject.hindi.rawValue)
         XCTAssertEqual(mockService.createPostLastImages?.count, 1)
     }
 
@@ -142,13 +142,13 @@ final class PostServiceLogicTests: XCTestCase {
                 groupId: "group-1",
                 authorId: "user-1",
                 authorName: "Test",
-                subject: subject,
+                subjectName: subject.rawValue,
                 date: Date(),
                 description: "",
                 images: []
             ) { _ in exp.fulfill() }
             wait(for: [exp], timeout: 1.0)
-            XCTAssertEqual(mockService.createPostLastSubject, subject)
+            XCTAssertEqual(mockService.createPostLastSubjectName, subject.rawValue)
         }
     }
 }
