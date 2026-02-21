@@ -3,78 +3,471 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassNotes - Share Class Notes</title>
+    <title>ClassNotes - Share Class Notes with Parents & Teachers</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.7;
-            color: #333;
-            background: linear-gradient(135deg, #5cc0d0 0%, #2d8a9e 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            color: #1a1a2e;
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .tagline {
+            font-size: 1.25rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .hero .platforms {
             display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* How it works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 32px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 16px;
         }
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 48px 40px;
-            max-width: 480px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-        .icon { font-size: 64px; margin-bottom: 16px; }
-        h1 {
-            font-size: 2rem;
-            color: #1a1a1a;
+
+        .step h3 {
+            font-size: 1.15rem;
             margin-bottom: 8px;
         }
-        .tagline {
+
+        .step p {
             color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Features */
+        .features-bg {
+            background: #f8f9ff;
+        }
+
+        .features-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .features-inner h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
             font-size: 1.1rem;
-            margin-bottom: 32px;
+            margin-bottom: 8px;
         }
-        .description {
-            color: #555;
-            margin-bottom: 32px;
-            text-align: left;
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
         }
-        .links {
+
+        /* Screenshots */
+        .screenshots-section {
+            text-align: center;
+        }
+
+        .screenshot-scroll {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 10px 32px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
         }
-        a {
-            display: block;
-            padding: 14px 24px;
-            border-radius: 12px;
+
+        .screenshot-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .screenshot-scroll::-webkit-scrollbar-track {
+            background: #eee;
+            border-radius: 3px;
+        }
+
+        .screenshot-scroll::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .screenshot-item {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            text-align: center;
+        }
+
+        .screenshot-item img {
+            width: 240px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .screenshot-item .caption {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            opacity: 0.9;
+            margin-bottom: 28px;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 14px 36px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.2s;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        a:hover { transform: translateY(-2px); }
-        .primary {
-            background: #33a3bc;
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .cta-button.outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.6);
             color: white;
         }
-        .secondary {
-            background: #f0f0f0;
-            color: #333;
+
+        .cta-button.outline:hover {
+            border-color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 60px 20px 48px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.05rem;
+            }
+
+            section {
+                padding: 56px 16px;
+            }
+
+            section h2, .features-inner h2, .cta h2 {
+                font-size: 1.6rem;
+            }
+
+            .screenshot-item img {
+                width: 200px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .step {
+                padding: 16px 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="icon">📝</div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-icon">&#128221;</div>
         <h1>ClassNotes</h1>
-        <p class="tagline">Share class notes with your school group</p>
-        <p class="description">ClassNotes makes it easy for parents and students to share and request photos of class notes within their school class group. Never miss what was written on the board again!</p>
-        <div class="links">
-            <a href="privacy-policy.html" class="secondary">Privacy Policy</a>
-            <a href="mailto:prashantkulkarni.nm@gmail.com" class="secondary">Contact Support</a>
+        <p class="tagline">The easiest way for parents and teachers to share class notes within school groups.</p>
+        <div class="platforms">
+            <span class="badge">&#63743; iPhone &amp; iPad</span>
+            <span class="badge">&#9679; Android</span>
         </div>
     </div>
+
+    <!-- How It Works -->
+    <section>
+        <h2>How It Works</h2>
+        <p class="subtitle">Get set up in under a minute. No email, no passwords &mdash; just your phone number.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Sign in with your phone</h3>
+                <p>Quick OTP verification &mdash; no passwords to remember.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Create or join a group</h3>
+                <p>Create a group for your child's class and share the invite code with other parents.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Share notes</h3>
+                <p>Snap photos of class notes and share them with the group instantly.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Request missing notes</h3>
+                <p>Was your child absent? Request notes from the group or a specific parent.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="screenshots-section">
+        <h2>See It in Action</h2>
+        <p class="subtitle">A clean, simple interface designed for busy parents.</p>
+        <div class="screenshot-scroll">
+            <div class="screenshot-item">
+                <img src="screenshots/01_Login_Screen.png" alt="Login Screen" loading="lazy">
+                <div class="caption">Sign in with phone</div>
+            </div>
+            <div class="screenshot-item">
+                <img src="screenshots/02_Groups_List.png" alt="Groups List" loading="lazy">
+                <div class="caption">Your groups</div>
+            </div>
+            <div class="screenshot-item">
+                <img src="screenshots/03_Group_Feed.png" alt="Group Feed" loading="lazy">
+                <div class="caption">Notes feed</div>
+            </div>
+            <div class="screenshot-item">
+                <img src="screenshots/04_Note_Detail.png" alt="Note Detail" loading="lazy">
+                <div class="caption">View note details</div>
+            </div>
+            <div class="screenshot-item">
+                <img src="screenshots/05_Requests_Tab.png" alt="Requests Tab" loading="lazy">
+                <div class="caption">Request notes</div>
+            </div>
+            <div class="screenshot-item">
+                <img src="screenshots/06_Request_Detail.png" alt="Request Detail" loading="lazy">
+                <div class="caption">Respond to requests</div>
+            </div>
+            <div class="screenshot-item">
+                <img src="screenshots/07_Group_Info.png" alt="Group Info" loading="lazy">
+                <div class="caption">Group members</div>
+            </div>
+            <div class="screenshot-item">
+                <img src="screenshots/08_Settings.png" alt="Settings" loading="lazy">
+                <div class="caption">Settings</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <div class="features-bg">
+        <div class="features-inner">
+            <h2>Features</h2>
+            <p class="subtitle">Everything you need to stay on top of your child's class notes.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#128247;</div>
+                    <h3>Photo Notes</h3>
+                    <p>Share multiple photos per note. Images are automatically optimized for fast loading.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128218;</div>
+                    <h3>Organized by Subject</h3>
+                    <p>Filter notes by Math, Science, English, Hindi, Social Studies &mdash; or add your own custom subjects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128276;</div>
+                    <h3>Request Notes</h3>
+                    <p>Ask the whole group or a specific parent for notes your child missed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128274;</div>
+                    <h3>Private Groups</h3>
+                    <p>Groups are invite-only. Share the code only with parents you trust.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128276;</div>
+                    <h3>Push Notifications</h3>
+                    <p>Get notified instantly when someone shares notes or responds to your request.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127760;</div>
+                    <h3>Cross-Platform</h3>
+                    <p>Works on iPhone, iPad, and Android. Everyone in the group stays connected.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        <h2>Interested?</h2>
+        <p>ClassNotes is currently in early access. Reach out to get started!</p>
+        <div class="cta-buttons">
+            <a class="cta-button" href="https://github.com/prashantkulk/classnotes-app">View on GitHub</a>
+            <a class="cta-button outline" href="mailto:prashantkulkarni.nm@gmail.com">Get in Touch</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Built with care for parents &amp; teachers.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="https://github.com/prashantkulk/classnotes-app">GitHub</a>
+            <a href="mailto:prashantkulkarni.nm@gmail.com">Contact</a>
+        </div>
+    </footer>
+
 </body>
 </html>
