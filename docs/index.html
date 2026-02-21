@@ -16,33 +16,56 @@
             color: #1a1a2e;
             background: #fff;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Hero */
+        /* ===== HERO ===== */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 60px 20px 0;
+            overflow: hidden;
+            position: relative;
         }
 
-        .hero-icon {
-            font-size: 4rem;
-            margin-bottom: 12px;
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, white);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 800;
             margin-bottom: 16px;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
         }
 
         .hero .tagline {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             opacity: 0.92;
-            max-width: 600px;
-            margin: 0 auto 32px;
+            max-width: 560px;
+            margin: 0 auto 28px;
+            font-weight: 300;
         }
 
         .hero .platforms {
@@ -50,21 +73,84 @@
             gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 48px;
         }
 
         .badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.18);
             backdrop-filter: blur(10px);
-            padding: 8px 18px;
+            padding: 8px 20px;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 500;
         }
 
-        /* Sections */
+        /* Phone mockups in hero */
+        .hero-phones {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 0;
+            margin: 0 auto;
+            max-width: 700px;
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .phone-mock {
+            background: #1a1a2e;
+            border-radius: 28px;
+            padding: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            transition: transform 0.4s ease;
+        }
+
+        .phone-mock img {
+            border-radius: 20px;
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .phone-left {
+            width: 180px;
+            transform: rotate(-8deg) translateX(30px) translateY(20px);
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .phone-center {
+            width: 220px;
+            z-index: 3;
+            position: relative;
+        }
+
+        .phone-right {
+            width: 180px;
+            transform: rotate(8deg) translateX(-30px) translateY(20px);
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .phone-mock:hover {
+            transform: scale(1.03);
+            z-index: 4;
+            opacity: 1;
+        }
+
+        .phone-left:hover {
+            transform: rotate(-4deg) translateX(30px) translateY(16px) scale(1.03);
+        }
+
+        .phone-right:hover {
+            transform: rotate(4deg) translateX(-30px) translateY(16px) scale(1.03);
+        }
+
+        /* ===== SECTIONS ===== */
         section {
             padding: 80px 20px;
             max-width: 1100px;
@@ -72,7 +158,7 @@
         }
 
         section h2 {
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 12px;
@@ -88,34 +174,100 @@
             margin-right: auto;
         }
 
-        /* How it works */
+        /* ===== SCENARIO ===== */
+        .scenario-bg {
+            background: #f8f9ff;
+        }
+
+        .scenario-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .scenario-inner h2 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+        }
+
+        .scenario-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        .scenario-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .scenario-icon {
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            width: 40px;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        .scenario-text {
+            font-size: 1.08rem;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .scenario-text strong {
+            color: #1a1a2e;
+        }
+
+        .scenario-result {
+            margin-top: 28px;
+            padding: 20px 28px;
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-radius: 16px;
+            border-left: 4px solid #667eea;
+            font-size: 1.1rem;
+            color: #333;
+            text-align: left;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== HOW IT WORKS ===== */
         .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 32px;
         }
 
         .step {
             text-align: center;
-            padding: 24px;
+            padding: 24px 16px;
         }
 
         .step-number {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 14px rgba(102, 126, 234, 0.3);
         }
 
         .step h3 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             margin-bottom: 8px;
         }
 
@@ -124,7 +276,7 @@
             font-size: 0.95rem;
         }
 
-        /* Features */
+        /* ===== FEATURES ===== */
         .features-bg {
             background: #f8f9ff;
         }
@@ -136,7 +288,7 @@
         }
 
         .features-inner h2 {
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 12px;
@@ -144,20 +296,26 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
         .feature-card {
             background: white;
             border-radius: 16px;
-            padding: 28px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            padding: 32px 28px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
 
         .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
+            font-size: 2.2rem;
+            margin-bottom: 14px;
         }
 
         .feature-card h3 {
@@ -170,16 +328,16 @@
             font-size: 0.95rem;
         }
 
-        /* Screenshots */
+        /* ===== SCREENSHOTS ===== */
         .screenshots-section {
             text-align: center;
         }
 
         .screenshot-scroll {
             display: flex;
-            gap: 24px;
+            gap: 28px;
             overflow-x: auto;
-            padding: 20px 10px 32px;
+            padding: 20px 20px 40px;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
@@ -189,7 +347,7 @@
         }
 
         .screenshot-scroll::-webkit-scrollbar-track {
-            background: #eee;
+            background: #f0f0f0;
             border-radius: 3px;
         }
 
@@ -204,37 +362,50 @@
             text-align: center;
         }
 
-        .screenshot-item img {
-            width: 240px;
-            border-radius: 20px;
+        .screenshot-phone {
+            background: #1a1a2e;
+            border-radius: 24px;
+            padding: 6px;
+            display: inline-block;
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-phone:hover {
+            transform: scale(1.03);
+        }
+
+        .screenshot-phone img {
+            width: 220px;
+            border-radius: 18px;
+            display: block;
         }
 
         .screenshot-item .caption {
-            margin-top: 12px;
+            margin-top: 14px;
             font-size: 0.9rem;
             color: #666;
             font-weight: 500;
         }
 
-        /* CTA */
+        /* ===== CTA ===== */
         .cta {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
-            padding: 60px 20px;
+            padding: 72px 20px;
         }
 
         .cta h2 {
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 700;
             margin-bottom: 12px;
         }
 
         .cta p {
-            opacity: 0.9;
-            margin-bottom: 28px;
-            font-size: 1.1rem;
+            opacity: 0.92;
+            margin-bottom: 32px;
+            font-size: 1.15rem;
         }
 
         .cta-buttons {
@@ -271,10 +442,10 @@
             border-color: white;
         }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            padding: 32px 20px;
+            padding: 36px 20px;
             color: #999;
             font-size: 0.85rem;
         }
@@ -286,15 +457,38 @@
 
         footer .footer-links {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             justify-content: center;
             margin-top: 8px;
         }
 
-        /* Responsive */
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
         @media (max-width: 640px) {
             .hero {
-                padding: 60px 20px 48px;
+                padding: 48px 16px 0;
             }
 
             .hero h1 {
@@ -305,25 +499,57 @@
                 font-size: 1.05rem;
             }
 
+            .app-icon {
+                width: 64px;
+                height: 64px;
+                border-radius: 16px;
+            }
+
+            .hero-phones {
+                max-width: 320px;
+            }
+
+            .phone-left {
+                width: 110px;
+                transform: rotate(-8deg) translateX(20px) translateY(16px);
+            }
+
+            .phone-center {
+                width: 140px;
+            }
+
+            .phone-right {
+                width: 110px;
+                transform: rotate(8deg) translateX(-20px) translateY(16px);
+            }
+
             section {
                 padding: 56px 16px;
             }
 
-            section h2, .features-inner h2, .cta h2 {
+            section h2, .features-inner h2, .cta h2, .scenario-inner h2 {
                 font-size: 1.6rem;
             }
 
-            .screenshot-item img {
-                width: 200px;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
 
             .steps {
                 grid-template-columns: 1fr 1fr;
-                gap: 16px;
+                gap: 12px;
             }
 
             .step {
                 padding: 16px 8px;
+            }
+
+            .screenshot-phone img {
+                width: 180px;
+            }
+
+            .scenario-text {
+                font-size: 1rem;
             }
         }
     </style>
@@ -332,36 +558,77 @@
 
     <!-- Hero -->
     <div class="hero">
-        <div class="hero-icon">&#128221;</div>
-        <h1>ClassNotes</h1>
-        <p class="tagline">The easiest way for parents and teachers to share class notes within school groups.</p>
-        <div class="platforms">
-            <span class="badge">&#63743; iPhone &amp; iPad</span>
-            <span class="badge">&#9679; Android</span>
+        <div class="hero-content">
+            <img src="screenshots/app-icon.png" alt="ClassNotes" class="app-icon">
+            <h1>ClassNotes</h1>
+            <p class="tagline">The easiest way for parents and teachers to share class notes within school groups.</p>
+            <div class="platforms">
+                <span class="badge">&#63743; iPhone &amp; iPad</span>
+                <span class="badge">&#9679; Android</span>
+            </div>
+        </div>
+        <div class="hero-phones">
+            <div class="phone-mock phone-left">
+                <img src="screenshots/02_Groups_List.png" alt="Groups">
+            </div>
+            <div class="phone-mock phone-center">
+                <img src="screenshots/03_Group_Feed.png" alt="Notes Feed">
+            </div>
+            <div class="phone-mock phone-right">
+                <img src="screenshots/05_Requests_Tab.png" alt="Requests">
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenario -->
+    <div class="scenario-bg">
+        <div class="scenario-inner">
+            <h2>Sound familiar?</h2>
+            <div class="scenario-steps fade-in">
+                <div class="scenario-step">
+                    <div class="scenario-icon">&#128564;</div>
+                    <div class="scenario-text">Your child was <strong>absent from school</strong> and missed the Math notes.</div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-icon">&#128172;</div>
+                    <div class="scenario-text">You message a parent on WhatsApp &mdash; <strong>no reply</strong>.</div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-icon">&#128542;</div>
+                    <div class="scenario-text">You try two more parents. One sends a <strong>blurry photo</strong> three hours later.</div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-icon">&#128553;</div>
+                    <div class="scenario-text">Homework time is over. Your child <strong>falls behind</strong>.</div>
+                </div>
+            </div>
+            <div class="scenario-result fade-in">
+                No more WhatsApp messages to random numbers. No more "does anyone have the notes?" in group chats. Just a simple, organized way to help each other out.
+            </div>
         </div>
     </div>
 
     <!-- How It Works -->
     <section>
-        <h2>How It Works</h2>
-        <p class="subtitle">Get set up in under a minute. No email, no passwords &mdash; just your phone number.</p>
+        <h2 class="fade-in">How It Works</h2>
+        <p class="subtitle fade-in">Get set up in under a minute. No email, no passwords &mdash; just your phone number.</p>
         <div class="steps">
-            <div class="step">
+            <div class="step fade-in">
                 <div class="step-number">1</div>
                 <h3>Sign in with your phone</h3>
                 <p>Quick OTP verification &mdash; no passwords to remember.</p>
             </div>
-            <div class="step">
+            <div class="step fade-in">
                 <div class="step-number">2</div>
                 <h3>Create or join a group</h3>
-                <p>Create a group for your child's class and share the invite code with other parents.</p>
+                <p>Create a group for your child's class and share the invite code.</p>
             </div>
-            <div class="step">
+            <div class="step fade-in">
                 <div class="step-number">3</div>
                 <h3>Share notes</h3>
-                <p>Snap photos of class notes and share them with the group instantly.</p>
+                <p>Snap photos of class notes and share them with the group.</p>
             </div>
-            <div class="step">
+            <div class="step fade-in">
                 <div class="step-number">4</div>
                 <h3>Request missing notes</h3>
                 <p>Was your child absent? Request notes from the group or a specific parent.</p>
@@ -371,39 +638,55 @@
 
     <!-- Screenshots -->
     <section class="screenshots-section">
-        <h2>See It in Action</h2>
-        <p class="subtitle">A clean, simple interface designed for busy parents.</p>
+        <h2 class="fade-in">See It in Action</h2>
+        <p class="subtitle fade-in">A clean, simple interface designed for busy parents.</p>
         <div class="screenshot-scroll">
             <div class="screenshot-item">
-                <img src="screenshots/01_Login_Screen.png" alt="Login Screen" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/01_Login_Screen.png" alt="Login Screen" loading="lazy">
+                </div>
                 <div class="caption">Sign in with phone</div>
             </div>
             <div class="screenshot-item">
-                <img src="screenshots/02_Groups_List.png" alt="Groups List" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/02_Groups_List.png" alt="Groups List" loading="lazy">
+                </div>
                 <div class="caption">Your groups</div>
             </div>
             <div class="screenshot-item">
-                <img src="screenshots/03_Group_Feed.png" alt="Group Feed" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/03_Group_Feed.png" alt="Group Feed" loading="lazy">
+                </div>
                 <div class="caption">Notes feed</div>
             </div>
             <div class="screenshot-item">
-                <img src="screenshots/04_Note_Detail.png" alt="Note Detail" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/04_Note_Detail.png" alt="Note Detail" loading="lazy">
+                </div>
                 <div class="caption">View note details</div>
             </div>
             <div class="screenshot-item">
-                <img src="screenshots/05_Requests_Tab.png" alt="Requests Tab" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/05_Requests_Tab.png" alt="Requests Tab" loading="lazy">
+                </div>
                 <div class="caption">Request notes</div>
             </div>
             <div class="screenshot-item">
-                <img src="screenshots/06_Request_Detail.png" alt="Request Detail" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/06_Request_Detail.png" alt="Request Detail" loading="lazy">
+                </div>
                 <div class="caption">Respond to requests</div>
             </div>
             <div class="screenshot-item">
-                <img src="screenshots/07_Group_Info.png" alt="Group Info" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/07_Group_Info.png" alt="Group Info" loading="lazy">
+                </div>
                 <div class="caption">Group members</div>
             </div>
             <div class="screenshot-item">
-                <img src="screenshots/08_Settings.png" alt="Settings" loading="lazy">
+                <div class="screenshot-phone">
+                    <img src="screenshots/08_Settings.png" alt="Settings" loading="lazy">
+                </div>
                 <div class="caption">Settings</div>
             </div>
         </div>
@@ -412,35 +695,35 @@
     <!-- Features -->
     <div class="features-bg">
         <div class="features-inner">
-            <h2>Features</h2>
-            <p class="subtitle">Everything you need to stay on top of your child's class notes.</p>
+            <h2 class="fade-in">Features</h2>
+            <p class="subtitle fade-in">Everything you need to stay on top of your child's class notes.</p>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">&#128247;</div>
                     <h3>Photo Notes</h3>
                     <p>Share multiple photos per note. Images are automatically optimized for fast loading.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">&#128218;</div>
                     <h3>Organized by Subject</h3>
-                    <p>Filter notes by Math, Science, English, Hindi, Social Studies &mdash; or add your own custom subjects.</p>
+                    <p>Filter notes by Math, Science, English, Hindi, Social Studies &mdash; or add custom subjects.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">&#128276;</div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">&#9995;</div>
                     <h3>Request Notes</h3>
                     <p>Ask the whole group or a specific parent for notes your child missed.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">&#128274;</div>
                     <h3>Private Groups</h3>
                     <p>Groups are invite-only. Share the code only with parents you trust.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">&#128276;</div>
                     <h3>Push Notifications</h3>
                     <p>Get notified instantly when someone shares notes or responds to your request.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">&#127760;</div>
                     <h3>Cross-Platform</h3>
                     <p>Works on iPhone, iPad, and Android. Everyone in the group stays connected.</p>
@@ -468,6 +751,23 @@
             <a href="mailto:prashantkulkarni.nm@gmail.com">Contact</a>
         </div>
     </footer>
+
+    <!-- Scroll animation script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.fade-in').forEach(function(el) {
+                observer.observe(el);
+            });
+        });
+    </script>
 
 </body>
 </html>
