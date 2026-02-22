@@ -53,9 +53,9 @@ class DemoRequestService : RequestService() {
         val index = current.indexOfFirst { it.id == requestId }
         if (index >= 0) {
             val photoURLs = if (imageUris.isEmpty()) {
-                listOf("https://picsum.photos/seed/resp/400/600")
+                listOf("https://images.unsplash.com/photo-resp?w=400&h=600&fit=crop")
             } else {
-                imageUris.map { "https://picsum.photos/seed/${UUID.randomUUID()}/400/600" }
+                imageUris.map { "https://images.unsplash.com/photo-${UUID.randomUUID()}?w=400&h=600&fit=crop" }
             }
 
             val response = RequestResponse(

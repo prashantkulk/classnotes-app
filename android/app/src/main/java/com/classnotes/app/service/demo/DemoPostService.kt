@@ -25,9 +25,9 @@ class DemoPostService : PostService() {
     ): Post {
         delay(500)
         val photoURLs = if (imageUris.isEmpty()) {
-            listOf("https://picsum.photos/seed/demo/400/600")
+            listOf("https://images.unsplash.com/photo-demo?w=400&h=600&fit=crop")
         } else {
-            imageUris.map { "https://picsum.photos/seed/${UUID.randomUUID()}/400/600" }
+            imageUris.map { "https://images.unsplash.com/photo-${UUID.randomUUID()}?w=400&h=600&fit=crop" }
         }
 
         val post = Post(
@@ -93,7 +93,7 @@ class DemoPostService : PostService() {
         val current = _posts.value.toMutableList()
         val index = current.indexOfFirst { it.id == postId }
         if (index >= 0) {
-            val newURLs = imageUris.map { "https://picsum.photos/seed/${UUID.randomUUID()}/400/600" }
+            val newURLs = imageUris.map { "https://images.unsplash.com/photo-${UUID.randomUUID()}?w=400&h=600&fit=crop" }
             current[index] = current[index].copy(photoURLs = current[index].photoURLs + newURLs)
             _posts.value = current
         }

@@ -84,7 +84,7 @@ class DemoPostServiceTest {
         )
 
         assertEquals(2, post.photoURLs.size)
-        assertTrue(post.photoURLs.all { it.startsWith("https://picsum.photos/") })
+        assertTrue(post.photoURLs.all { it.startsWith("https://images.unsplash.com/") })
     }
 
     @Test

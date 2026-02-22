@@ -113,10 +113,10 @@ class DemoDataTest {
     }
 
     @Test
-    fun `all posts have photo URLs pointing to picsum`() {
+    fun `all posts have photo URLs pointing to unsplash`() {
         DemoData.posts.forEach { post ->
             post.photoURLs.forEach { url ->
-                assertTrue("URL should be picsum: $url", url.startsWith("https://picsum.photos/"))
+                assertTrue("URL should be unsplash: $url", url.startsWith("https://images.unsplash.com/"))
             }
         }
     }

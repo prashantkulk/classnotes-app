@@ -150,7 +150,7 @@ class DemoPostService: PostService {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             // Generate placeholder URLs for images
             let photoURLs = images.enumerated().map { index, _ in
-                "https://picsum.photos/seed/\(UUID().uuidString)/400/600"
+                "https://images.unsplash.com/photo-\(UUID().uuidString)?w=400&h=600&fit=crop"
             }
 
             let post = Post(
@@ -161,7 +161,7 @@ class DemoPostService: PostService {
                 subjectName: subjectName,
                 date: date,
                 description: description,
-                photoURLs: photoURLs.isEmpty ? ["https://picsum.photos/seed/demo/400/600"] : photoURLs
+                photoURLs: photoURLs.isEmpty ? ["https://images.unsplash.com/photo-demo?w=400&h=600&fit=crop"] : photoURLs
             )
             self.posts.insert(post, at: 0)
             completion(.success(post))
@@ -210,7 +210,7 @@ class DemoPostService: PostService {
     override func addPhotos(to postId: String, images: [UIImage], completion: @escaping (Result<Void, Error>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if let index = self.posts.firstIndex(where: { $0.id == postId }) {
-                let newURLs = images.map { _ in "https://picsum.photos/seed/\(UUID().uuidString)/400/600" }
+                let newURLs = images.map { _ in "https://images.unsplash.com/photo-\(UUID().uuidString)?w=400&h=600&fit=crop" }
                 self.posts[index].photoURLs.append(contentsOf: newURLs)
             }
             completion(.success(()))
@@ -267,8 +267,8 @@ class DemoRequestService: RequestService {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if let index = self.requests.firstIndex(where: { $0.id == requestId }) {
                 let photoURLs = images.isEmpty
-                    ? ["https://picsum.photos/seed/resp/400/600"]
-                    : images.map { _ in "https://picsum.photos/seed/\(UUID().uuidString)/400/600" }
+                    ? ["https://images.unsplash.com/photo-resp?w=400&h=600&fit=crop"]
+                    : images.map { _ in "https://images.unsplash.com/photo-\(UUID().uuidString)?w=400&h=600&fit=crop" }
 
                 let response = RequestResponse(
                     authorId: authorId,
@@ -339,10 +339,10 @@ enum DemoData {
             date: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
             description: "Chapter 7 - Fractions and Decimals (all 4 pages)",
             photoURLs: [
-                "https://picsum.photos/seed/math1/400/600",
-                "https://picsum.photos/seed/math2/400/600",
-                "https://picsum.photos/seed/math3/400/600",
-                "https://picsum.photos/seed/math4/400/600",
+                "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=400&h=600&fit=crop",
             ]
         ),
         Post(
@@ -354,8 +354,8 @@ enum DemoData {
             date: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
             description: "Water cycle diagram + notes from today's class",
             photoURLs: [
-                "https://picsum.photos/seed/sci1/400/600",
-                "https://picsum.photos/seed/sci2/400/600",
+                "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=400&h=600&fit=crop",
             ]
         ),
         Post(
@@ -367,7 +367,7 @@ enum DemoData {
             date: Date(),
             description: "Grammar - Tenses worksheet",
             photoURLs: [
-                "https://picsum.photos/seed/eng1/400/600",
+                "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=600&fit=crop",
             ]
         ),
         Post(
@@ -379,8 +379,8 @@ enum DemoData {
             date: Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date(),
             description: "Hindi essay topic and reference notes",
             photoURLs: [
-                "https://picsum.photos/seed/hindi1/400/600",
-                "https://picsum.photos/seed/hindi2/400/600",
+                "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=600&fit=crop",
             ]
         ),
         Post(
@@ -392,7 +392,7 @@ enum DemoData {
             date: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(),
             description: "History - Mughal Empire timeline",
             photoURLs: [
-                "https://picsum.photos/seed/ss1/400/600",
+                "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&h=600&fit=crop",
             ]
         ),
         Post(
@@ -404,8 +404,8 @@ enum DemoData {
             date: Date(),
             description: "Geometry homework - angles worksheet",
             photoURLs: [
-                "https://picsum.photos/seed/geo1/400/600",
-                "https://picsum.photos/seed/geo2/400/600",
+                "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?w=400&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=400&h=600&fit=crop",
             ]
         ),
     ]
@@ -434,7 +434,7 @@ enum DemoData {
                     id: "demo-resp-1",
                     authorId: "demo-user-2",
                     authorName: "Aditi's Mom",
-                    photoURLs: ["https://picsum.photos/seed/resp1/400/600"]
+                    photoURLs: ["https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=400&h=600&fit=crop"]
                 )
             ]
         ),
