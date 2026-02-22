@@ -68,16 +68,33 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
     // MARK: - Badge clearing
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        clearBadge()
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        clearBadge()
+    }
+
+    private func clearBadge() {
         UNUserNotificationCenter.current().setBadgeCount(0)
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
 
     // MARK: - UNUserNotificationCenterDelegate
 
-    // Show notification even when app is in foreground
+    // Show notification when app is in foreground — but do NOT re-increment the badge
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .badge, .sound])
+        completionHandler([.banner, .sound])
+    }
+
+    // Clear badge when user taps a notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        clearBadge()
+        completionHandler()
     }
 }
 
@@ -89,6 +106,7 @@ extension Notification.Name {
 struct ClassNotesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var authService: AuthService
+    @Environment(\.scenePhase) private var scenePhase
 
     init() {
         // Enable demo mode for simulator testing
@@ -107,6 +125,14 @@ struct ClassNotesApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(authService)
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            // Belt-and-suspenders: clear badge via SwiftUI scenePhase as well,
+            // since applicationDidBecomeActive can be unreliable in SwiftUI apps.
+            if newPhase == .active {
+                UNUserNotificationCenter.current().setBadgeCount(0)
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            }
         }
     }
 }
