@@ -126,7 +126,7 @@ struct ClassNotesApp: App {
             RootView()
                 .environmentObject(authService)
         }
-        .onChange(of: scenePhase) { _, newPhase in
+        .onChange(of: scenePhase) { newPhase in
             // Belt-and-suspenders: clear badge via SwiftUI scenePhase as well,
             // since applicationDidBecomeActive can be unreliable in SwiftUI apps.
             if newPhase == .active {
