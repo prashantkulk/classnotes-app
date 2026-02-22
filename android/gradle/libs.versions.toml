@@ -9,6 +9,7 @@ navigationCompose = "2.8.5"
 firebaseBom = "33.7.0"
 coil = "2.7.0"
 accompanistPermissions = "0.36.0"
+androidxBrowser = "1.8.0"
 googleServices = "4.4.2"
 junit = "4.13.2"
 junitExt = "1.2.1"
@@ -39,6 +40,7 @@ firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistPermissions" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitExt" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

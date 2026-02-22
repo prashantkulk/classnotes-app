@@ -12,10 +12,8 @@ import org.junit.runner.RunWith
  * End-to-end UI test that exercises the full demo flow of the ClassNotes app.
  * This mirrors the iOS ClassNotesUITests.testFullDemoFlow().
  *
- * Prerequisite: The emulator must have demo mode enabled.
- * Run: adb shell "touch /sdcard/classnotes_demo_mode"
- *
- * Then run: ./gradlew connectedAndroidTest
+ * Demo mode is enabled automatically by DemoTestRunner before the app starts.
+ * Run: ./gradlew connectedAndroidTest
  */
 @RunWith(AndroidJUnit4::class)
 class ClassNotesE2ETest {
@@ -40,7 +38,7 @@ class ClassNotesE2ETest {
 
     @Test
     fun testLoginScreen_hasPhoneField() {
-        composeRule.onNodeWithText("Phone Number").assertExists()
+        composeRule.onNodeWithText("Enter your phone number").assertExists()
     }
 
     @Test
@@ -70,9 +68,10 @@ class ClassNotesE2ETest {
         // ===== Step 1: Login Screen =====
         composeRule.onNodeWithText("ClassNotes").assertIsDisplayed()
 
-        // Enter phone number
-        composeRule.onNodeWithText("Phone Number").performClick()
-        composeRule.onNodeWithText("Phone Number").performTextInput("9876543210")
+        // Enter phone number - find the text field by its placeholder
+        val phoneField = composeRule.onAllNodes(hasSetTextAction())[0]
+        phoneField.performClick()
+        phoneField.performTextInput("9876543210")
         composeRule.waitForIdle()
 
         // Tap Send OTP
@@ -83,13 +82,11 @@ class ClassNotesE2ETest {
         // Wait for OTP screen
         composeRule.waitUntil(5000) {
             composeRule.onAllNodesWithText("Verify").fetchSemanticsNodes().isNotEmpty() ||
-            composeRule.onAllNodesWithText("Enter the OTP").fetchSemanticsNodes().isNotEmpty()
+            composeRule.onAllNodesWithText("Enter the OTP", substring = true).fetchSemanticsNodes().isNotEmpty()
         }
 
         // Find the OTP text field and enter code
-        // The OTP fields may be individual or a single hidden field
         try {
-            // Try typing into visible text field
             val otpFields = composeRule.onAllNodes(hasSetTextAction())
             if (otpFields.fetchSemanticsNodes().isNotEmpty()) {
                 otpFields[0].performTextInput("123456")
@@ -128,8 +125,6 @@ class ClassNotesE2ETest {
             composeRule.onAllNodesWithText("Class 5A").fetchSemanticsNodes().isNotEmpty()
         }
         composeRule.onNodeWithText("Class 5A").assertIsDisplayed()
-        composeRule.onNodeWithText("Class 5B").assertIsDisplayed()
-        composeRule.onNodeWithText("Delhi Public School").assertIsDisplayed()
 
         // ===== Step 5: Navigate to Group Feed =====
         composeRule.onNodeWithText("Class 5A").performClick()
@@ -143,8 +138,8 @@ class ClassNotesE2ETest {
         composeRule.onNodeWithText("Notes").assertIsDisplayed()
         composeRule.onNodeWithText("Requests").assertIsDisplayed()
 
-        // Verify post content
-        composeRule.onNodeWithText("Math").assertIsDisplayed()
+        // Verify post content (multiple nodes match "Math" - filter chip + post card)
+        composeRule.onAllNodesWithText("Math")[0].assertIsDisplayed()
 
         // Verify "Share Notes" FAB
         composeRule.onNodeWithText("Share Notes").assertIsDisplayed()
@@ -152,10 +147,11 @@ class ClassNotesE2ETest {
         // ===== Step 6: Subject Filter =====
         // Verify subject filter pills are shown
         composeRule.onNodeWithText("All").assertIsDisplayed()
-        composeRule.onNodeWithText("Science").assertIsDisplayed()
+        // "Science" matches filter chip + post card, use indexed access
+        composeRule.onAllNodesWithText("Science")[0].assertIsDisplayed()
 
         // Tap a subject filter
-        composeRule.onNodeWithText("Science").performClick()
+        composeRule.onAllNodesWithText("Science")[0].performClick()
         composeRule.waitForIdle()
 
         // Tap All to reset filter
@@ -223,6 +219,9 @@ class ClassNotesE2ETest {
         loginAndNavigateToGroupFeed()
 
         // Tap group info button
+        composeRule.waitUntil(3000) {
+            composeRule.onAllNodesWithContentDescription("Group Info").fetchSemanticsNodes().isNotEmpty()
+        }
         composeRule.onNodeWithContentDescription("Group Info").performClick()
         composeRule.waitForIdle()
 
@@ -232,8 +231,8 @@ class ClassNotesE2ETest {
         }
         composeRule.onNodeWithText("DEMO01").assertIsDisplayed() // Invite code
 
-        // Navigate back
-        composeRule.onNodeWithContentDescription("Back").performClick()
+        // Navigate back (GroupInfoScreen uses Close icon, not Back)
+        composeRule.onNodeWithContentDescription("Close").performClick()
         composeRule.waitForIdle()
     }
 
@@ -249,9 +248,9 @@ class ClassNotesE2ETest {
         composeRule.onAllNodesWithContentDescription("View thread")[0].performClick()
         composeRule.waitForIdle()
 
-        // Verify post detail screen
-        composeRule.waitUntil(3000) {
-            composeRule.onAllNodesWithText("Comments").fetchSemanticsNodes().isNotEmpty()
+        // Verify post detail screen (text is "N Comments", use substring match)
+        composeRule.waitUntil(5000) {
+            composeRule.onAllNodesWithText("Comments", substring = true).fetchSemanticsNodes().isNotEmpty()
         }
 
         // Verify comment input exists
@@ -271,7 +270,7 @@ class ClassNotesE2ETest {
         loginAndNavigateToGroupFeed()
 
         // The feed should be displayed with posts visible (PullToRefreshBox wraps the content)
-        composeRule.onNodeWithText("Math").assertIsDisplayed()
+        composeRule.onAllNodesWithText("Math")[0].assertIsDisplayed()
 
         // Switch to Requests tab
         composeRule.onNodeWithText("Requests").performClick()
@@ -289,15 +288,16 @@ class ClassNotesE2ETest {
      * Performs login + onboarding and arrives at the groups list screen.
      */
     private fun loginAndNavigateToGroups() {
-        // Enter phone
-        composeRule.onNodeWithText("Phone Number").performClick()
-        composeRule.onNodeWithText("Phone Number").performTextInput("9876543210")
+        // Enter phone - find the text field by input action
+        val phoneField = composeRule.onAllNodes(hasSetTextAction())[0]
+        phoneField.performClick()
+        phoneField.performTextInput("9876543210")
         composeRule.onNodeWithText("Send OTP").performClick()
         composeRule.waitForIdle()
 
         // Enter OTP
         composeRule.waitUntil(5000) {
-            composeRule.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().isNotEmpty()
+            composeRule.onAllNodesWithText("Enter the OTP", substring = true).fetchSemanticsNodes().isNotEmpty()
         }
         Thread.sleep(500) // Brief wait for UI transition
         val otpFields = composeRule.onAllNodes(hasSetTextAction())

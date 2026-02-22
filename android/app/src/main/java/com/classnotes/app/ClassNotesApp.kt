@@ -6,7 +6,7 @@ import com.google.firebase.FirebaseApp
 class ClassNotesApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        AppMode.initialize()
+        AppMode.initialize(this)
 
         // Always initialize Firebase — required even if demo mode might be active,
         // since the user can switch to real mode via override file

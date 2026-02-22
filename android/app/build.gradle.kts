@@ -15,7 +15,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.classnotes.app.DemoTestRunner"
     }
 
     signingConfigs {
@@ -84,6 +84,9 @@ dependencies {
 
     // Image loading
     implementation(libs.coil.compose)
+
+    // Browser (required for Firebase Phone Auth reCAPTCHA fallback)
+    implementation(libs.androidx.browser)
 
     // Permissions
     implementation(libs.accompanist.permissions)
