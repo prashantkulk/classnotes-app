@@ -65,6 +65,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         )
     }
 
+    // MARK: - Badge clearing
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        UNUserNotificationCenter.current().setBadgeCount(0)
+    }
+
     // MARK: - UNUserNotificationCenterDelegate
 
     // Show notification even when app is in foreground
